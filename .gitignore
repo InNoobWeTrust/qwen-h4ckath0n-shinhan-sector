@@ -3,6 +3,11 @@
 *.bak
 *.swp
 *~
+Thumbs.db
+Desktop.ini
+.cache/
+*.cache
+*.orig
 
 # Build outputs
 dist/
@@ -16,17 +21,11 @@ yarn-error.log*
 
 # macOS
 .DS_Store
+.Spotlight-V100/
+.Trashes/
 
 # IDE
 .vscode/
 .idea/
 
-# Screenshots and assets
-screenshots/
-*.png
-*.jpg
-*.jpeg
-*.gif
-
-# Excel files (if not needed)
-*.xlsx
+.kilo/plans
