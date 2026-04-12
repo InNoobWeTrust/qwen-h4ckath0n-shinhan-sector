@@ -1,57 +1,114 @@
-# Comprehensive Financial & Strategic Analysis: Shinhan 32 Use Cases
+# Use Case Analysis: Shinhan Vietnam Hackathon
 
-**Document Version:** 1.0  
-**Date:** April 11, 2026  
+**Document Version:** 2.0  
+**Date:** April 11-13, 2026  
 **Scope:** Shinhan Bank, Shinhan Finance, Shinhan Securities, Shinhan Life Vietnam  
-**Context:** Hackathon Prize + Job Contract Optimization
+**Context:** Hackathon Prize + Job Contract Optimization  
+**Artifacts:** Consolidated from brainstorming and research sessions
 
 ---
 
-## 1. SCORING METHODOLOGY
+## Executive Summary
 
-### Business Value Criteria (Job Contract Focus)
+This analysis evaluates 32 official use cases for the Shinhan Vietnam Hackathon across dual objectives: winning the top prize and securing long-term job contracts.
 
-| ID | Criterion | Weight | Rationale |
-|----|-----------|--------|-----------|
-| BV1 | **Revenue Potential** | 15% | Absolute revenue ceiling over 5 years |
-| BV2 | **Speed to Revenue** | 10% | Months until first dollar (lower = better) |
-| BV3 | **Competitive Moat** | 10% | Barriers to entry, IP, network effects |
-| BV4 | **Scalability Ceiling** | 10% | Max addressable market size |
+### Key Decision: Highest Odds Use Cases
 
-### Implementation Criteria (Job Contract Focus)
+> **If the goal is to win with actual hacker advantage rather than model theater:**
+> 1.  🥇 **SB9 - AI-Driven SME Credit Scoring via POS Data** - Best pure hacker advantage play
+> 2.  🥈 **SF12 - MicroBiz Loan for Digital Economy** - Best data-fusion moat play
+> 3.  🥉 **SF11 - Earned Wage Access & Salary-Linked Lending** - Best lower-risk alternative
 
-| ID | Criterion | Weight | Rationale |
-|----|-----------|--------|-----------|
-| IM1 | **Implementation Cost** | 10% | CapEx + OpEx; lower = better |
-| IM2 | **Risk Profile** | 10% | Regulatory, credit, operational risk severity |
-| IM3 | **Data Dependency** | 8% | Infrastructure required (lower = better) |
+> **If balancing both hackathon demo impact and strategic business value:**
+> - **Primary Build:** SB6 (Embedded Installment & BNPL) - Best overall balance
+> - **Strategic Narrative:** SF12 (MicroBiz Loan) - Shows long-term vision
+> - **Backup Demo:** SB4 (AI Call Bot) - Highest demo impressiveness
 
-### Hackathon Performance Criteria (Prize Focus)
+The strongest opportunities are not wrapped model UIs - they are use cases where value comes from data plumbing, local heuristics, and last-mile integration work that large vendors cannot copy quickly.
 
-| ID | Criterion | Weight | Rationale |
-|----|-----------|--------|-----------|
-| HP1 | **Demo Impact** | 12% | 3-5 minute demo impressiveness |
-| HP2 | **Tech Complexity** | 7% | Difficulty to build working prototype (lower = better) |
-| HP3 | **Qwen Alignment** | 8% | Fit with Qwen capabilities, APIs, strengths |
+[SOURCE: HACKER_ADVANTAGE_RESEARCH.md, TRUE_HACKER_ADVANTAGE.md]
+
+---
+
+## All 32 Use Cases Overview
+
+### Shinhan Bank (SB1-SB10)
+| ID | Title | One-Line Summary |
+|----|-------|------------------|
+| SB1 | AI Personal Financial Coach | AI assistant in SOL app for spending analysis, savings recommendations, and product cross-sell |
+| SB2 | AI-Powered Customer Engagement Automation | Real-time behavior-triggered personalized comms across push/SMS/email |
+| SB3 | AI-Powered Loyalty & Personalized Offers | Smart loyalty system with dynamic QR and location-based merchant offers |
+| SB4 | AI Call Bot for Collections & Sales | Voice bot for debt reminders and outbound sales calls |
+| SB5 | AI for Internal Reporting & BI Automation | Conversational AI querying of business data instead of manual MIS reports |
+| SB6 | Embedded Installment & BNPL | Lending integrated into e-commerce checkout with instant AI approval |
+| SB7 | SoftPOS for SOHO & Micro Businesses | Turn smartphones into POS terminals via NFC |
+| SB8 | AI Voice Biometrics for Fraud Prevention | Real-time voice verification during loan underwriting and hotline calls |
+| SB9 | AI-Driven SME Credit Scoring via POS Data | Credit scoring using real-time merchant POS transaction data |
+| SB10 | AI-Powered Branch Traffic Prediction | AI prediction of branch wait times and staffing optimization |
+
+### Shinhan Finance (SF1-SF12)
+Focus areas: Document processing automation (IDP), fraud detection, eKYC enhancement, AI-based CRM, Open Banking credit scoring, BNPL partnerships, cybersecurity, customer behavior prediction, voice-to-text, earned wage access, micro-loans for digital economy sellers.
+
+### Shinhan Securities (SS1-SS6)
+Focus areas: AI POC/vibe coding, gamified investment experience, content generation, accounting automation, RegTech/AML, digital assets/tokenized securities.
+
+### Shinhan Life (SL1-SL4)
+Focus areas: BI platform, voice AI verification for UL product compliance, claims fraud detection, digital health ecosystem.
+
+[SOURCE: HACKATHON_RESEARCH.md]
+
+---
+
+## Use Case Scoring Methodology
+
+Scores are calculated on a 1-10 scale with weighted criteria optimized for both hackathon success and long-term business value:
+
+| Category | Weight | Rationale |
+|----------|--------|-----------|
+| **Business Value** | 45% | Primary job contract driver |
+| **Implementation** | 28% | Feasibility for production deployment |
+| **Hackathon Performance** | 27% | Primary prize driver |
+
+### Business Value Criteria
+| ID | Criterion | Weight |
+|----|-----------|--------|
+| BV1 | Revenue Potential | 15% |
+| BV2 | Speed to Revenue | 10% |
+| BV3 | Competitive Moat | 10% |
+| BV4 | Scalability Ceiling | 10% |
+
+### Implementation Criteria
+| ID | Criterion | Weight |
+|----|-----------|--------|
+| IM1 | Implementation Cost | 10% |
+| IM2 | Risk Profile | 10% |
+| IM3 | Data Dependency | 8% |
+
+### Hackathon Performance Criteria
+| ID | Criterion | Weight |
+|----|-----------|--------|
+| HP1 | Demo Impact | 12% |
+| HP2 | Tech Complexity | 7% |
+| HP3 | Qwen Alignment | 8% |
 
 ### Strategic Fit Criteria
-
-| ID | Criterion | Weight | Rationale |
-|----|-----------|--------|-----------|
-| SF1 | **Strategic Defensibility** | 5% | Long-term Shinhan strategic value |
-| SF2 | **Cross-sell Potential** | 5% | Enables other product sales |
+| ID | Criterion | Weight |
+|----|-----------|--------|
+| SF1 | Strategic Defensibility | 5% |
+| SF2 | Cross-sell Potential | 5% |
 
 **Total Weight:** 100%  
-**Score Range:** 1-10 (10 = best)
+[SOURCE: USE_CASE_ANALYSIS.md]
 
 ---
 
-## 2. INDIVIDUAL USE CASE SCORES
+## Detailed Use Case Analysis
+
+This section contains complete scored analysis for all 32 use cases. Scores are calculated using the methodology above.
 
 ### 2.1 SHINHAN BANK USE CASES
 
 #### SB1: AI Personal Financial Coach
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Cross-sell engine can drive significant NPS; but hard to monetize directly |
@@ -72,7 +129,6 @@
 ---
 
 #### SB2: AI-Powered Customer Engagement Automation
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 6 | Efficiency gains + conversion improvement; hard to isolate revenue |
@@ -93,7 +149,6 @@
 ---
 
 #### SB3: AI-Powered Loyalty & Personalized Offers
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Merchant partnerships, increased transaction volume, data |
@@ -114,7 +169,6 @@
 ---
 
 #### SB4: AI Call Bot for Collections & Sales
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Direct cost reduction + improved recovery rates |
@@ -135,7 +189,6 @@
 ---
 
 #### SB5: AI for Internal Reporting & BI Automation
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 3 | Cost reduction, not revenue generation |
@@ -156,7 +209,6 @@
 ---
 
 #### SB6: Embedded Installment & BNPL
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 9 | Merchant fees + interest income + late fees |
@@ -177,7 +229,6 @@
 ---
 
 #### SB7: SoftPOS for SOHO & Micro Businesses
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Transaction fees + account relationships + lending |
@@ -198,7 +249,6 @@
 ---
 
 #### SB8: AI Voice Biometrics for Fraud Prevention
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 6 | Fraud loss prevention; hard to quantify as revenue |
@@ -219,7 +269,6 @@
 ---
 
 #### SB9: AI-Driven SME Credit Scoring via POS Data
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 9 | Massive underserved market; high loan volumes |
@@ -240,7 +289,6 @@
 ---
 
 #### SB10: AI-Powered Branch Traffic Prediction
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 3 | Cost reduction only; no revenue |
@@ -263,7 +311,6 @@
 ### 2.2 SHINHAN FINANCE USE CASES
 
 #### SF1: Intelligent Document Processing (IDP)
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 5 | Cost reduction + faster processing; indirect revenue |
@@ -284,7 +331,6 @@
 ---
 
 #### SF2: Falsified Document Detection
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 5 | Fraud prevention; cost avoidance |
@@ -305,7 +351,6 @@
 ---
 
 #### SF3: Video Call Enhancement with eKYC
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Enables digital onboarding; reduces branch costs |
@@ -326,7 +371,6 @@
 ---
 
 #### SF4: AI-based CRM
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Predictive analytics → up-sell/cross-sell/retention |
@@ -347,7 +391,6 @@
 ---
 
 #### SF5: Open Banking API for AI Credit Scoring
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Alternative credit scoring → more approvals |
@@ -368,7 +411,6 @@
 ---
 
 #### SF6: BNPL/Personal Loan Partnership
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Partnership fees + referral income |
@@ -389,7 +431,6 @@
 ---
 
 #### SF7: AI for ICT Cyber Security
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 4 | Cost reduction, risk avoidance |
@@ -410,7 +451,6 @@
 ---
 
 #### SF8: AI Customer Behavior Prediction
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Predict interests → targeted acquisition |
@@ -431,7 +471,6 @@
 ---
 
 #### SF9: AI for Management BI Reports
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 3 | Cost reduction; no direct revenue |
@@ -452,7 +491,6 @@
 ---
 
 #### SF10: Voice-to-Text Solution
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 4 | Internal efficiency; enabling tech |
@@ -473,7 +511,6 @@
 ---
 
 #### SF11: Earned Wage Access & Salary-Linked Lending
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Payroll-linked loans = lower risk = volume |
@@ -494,7 +531,6 @@
 ---
 
 #### SF12: MicroBiz Loan for Digital Economy
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Huge underserved market |
@@ -517,7 +553,6 @@
 ### 2.3 SHINHAN SECURITIES USE CASES
 
 #### SS1: AI-Native Rapid POC / Vibe Coding
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 4 | Development efficiency; internal tool |
@@ -538,7 +573,6 @@
 ---
 
 #### SS2: AI-Enhanced Investment Experience
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 6 | Gamification → engagement → more trades |
@@ -559,7 +593,6 @@
 ---
 
 #### SS3: AI-Powered Financial Content Generation
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 5 | User engagement → indirectly more trades |
@@ -580,7 +613,6 @@
 ---
 
 #### SS4: AI-Based End-to-End Accounting Automation
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Capture SME accounting market |
@@ -601,7 +633,6 @@
 ---
 
 #### SS5: RegTech / Compliance Tech
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 6 | Cost reduction + compliance risk avoidance |
@@ -622,7 +653,6 @@
 ---
 
 #### SS6: Digital Assets & Tokenized Securities
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 9 | New asset class = new revenue streams |
@@ -645,7 +675,6 @@
 ### 2.4 SHINHAN LIFE USE CASES
 
 #### SL1: Data Analytics & BI Platform
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 6 | Internal efficiency + customer insights |
@@ -666,7 +695,6 @@
 ---
 
 #### SL2: Voice AI Rating System
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 5 | Compliance + quality assurance |
@@ -687,7 +715,6 @@
 ---
 
 #### SL3: AI-Powered Insurance Claims Fraud Detection
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 8 | Fraud prevention = direct savings |
@@ -708,7 +735,6 @@
 ---
 
 #### SL4: AI-Powered Digital Health Ecosystem
-
 | Criterion | Score | Rationale |
 |-----------|-------|-----------|
 | Revenue Potential | 7 | Health premiums + wellness engagement |
@@ -728,172 +754,124 @@
 
 ---
 
-## 3. WEIGHTED COMPOSITE RANKINGS
+## Hacker Advantage Analysis
 
-### 3.1 Scoring Weights Explanation
+### Strategic Brief
 
-| Category | Weight | Rationale |
-|----------|--------|-----------|
-| **Business Value** | 45% | Primary job contract driver |
-| **Implementation** | 28% | Feasibility for job |
-| **Hackathon Performance** | 27% | Primary prize driver |
+The strongest hackathon opportunities are not wrapped frontier model UIs. The strongest opportunities are the ones where hackers can outperform large vendors through messy integration work, bespoke underwriting logic, and local-market workflow design.
 
-### 3.2 TOP 10 OVERALL RANKINGS
+**Decision Rule:** Prefer use cases with these traits:
+- Value comes from combining 2-4 disconnected data sources
+- A smart rules engine creates value before any advanced AI layer exists
+- Local Vietnam workflow knowledge matters
+- Integration complexity is the moat
+- The model is a helper, not the product
 
-| Rank | ID | Use Case | Score | Key Strength |
-|------|----|----------|-------|--------------|
-| 🥇 1 | **SB6** | Embedded Installment & BNPL | **7.4** | Best demo + strong revenue |
-| 🥈 2 | **SF12** | MicroBiz Loan for Digital Economy | **7.3** | Massive market, strategic |
-| 🥉 3 | **SF11** | Earned Wage Access & Salary-Linked | **7.0** | Low risk, high volume |
-| 4 | **SB9** | AI-Driven SME Credit Scoring | **7.1** | Huge market, strong moat |
-| 5 | **SB4** | AI Call Bot | **6.9** | Best demo impact |
-| 6 | **SF3** | Video Call eKYC | **6.9** | Strong demo + strategic |
-| 7 | **SL3** | Claims Fraud Detection | **6.9** | Direct savings, good demo |
-| 8 | **SF4** | AI-based CRM | **6.8** | Cross-sell powerhouse |
-| 9 | **SF5** | Open Banking Credit Scoring | **6.8** | Alternative data moat |
-| 10 | **SB3** | Loyalty & Personalized Offers | **6.6** | Ecosystem play |
+Avoid use cases where the main story is "the model talks well" or "the model summarizes things nicely." Those are easiest for vendors to copy.
 
-### 3.3 TOP 5 "PRIZE-WINNING" FOCUSED (Hackathon Performance Weighted Higher)
-
-| Rank | ID | Use Case | Demo Score | Tech Fit |
-|------|----|----------|------------|----------|
-| 1 | SB4 | AI Call Bot | 9 | 9 |
-| 2 | SB6 | BNPL | 9 | 8 |
-| 3 | SB7 | SoftPOS | 8 | 6 |
-| 4 | SF3 | eKYC | 8 | 8 |
-| 5 | SB3 | Loyalty | 8 | 7 |
-
-### 3.4 TOP 5 "JOB-WINNING" FOCUSED (Business Value Weighted Higher)
-
-| Rank | ID | Use Case | Revenue Score | Moat Score |
-|------|----|----------|---------------|------------|
-| 1 | SB9 | SME Credit | 9 | 8 |
-| 2 | SB6 | BNPL | 9 | 5 |
-| 3 | SF12 | MicroBiz Loan | 8 | 8 |
-| 4 | SF11 | Salary-Linked | 8 | 7 |
-| 5 | SS6 | Digital Assets | 9 | 9 |
+[SOURCE: HACKER_ADVANTAGE_RESEARCH.md]
 
 ---
 
-## 4. CATEGORY RANKINGS
+### Hacker Advantage Scoring Methodology
 
-### 4.1 SHINHAN BANK
+This ranking uses one test: where does the team create value through data fusion, local heuristics, and ugly last-mile integration work that a vendor cannot copy quickly by adding one more AI API?
 
-| Rank | ID | Score | Verdict |
-|------|----|-------|---------|
-| 1 | SB6 | 7.4 | 🥇 TOP CHOICE |
-| 2 | SB9 | 7.1 | 🥇 TOP CHOICE |
-| 3 | SB4 | 6.9 | Strong choice |
-| 4 | SB7 | 6.7 | Good choice |
-| 5 | SB3 | 6.6 | Good choice |
-| 6 | SB1 | 6.3 | Moderate |
-| 7 | SB8 | 6.4 | Moderate |
-| 8 | SB2 | 5.9 | Moderate |
-| 9 | SF1-SB | 5.7 | Low priority |
-| 10 | SB5 | 4.8 | ⚠️ Avoid |
-| 11 | SB10 | 3.9 | ⚠️ Avoid |
-
-**Best Bank Pick:** SB6 (BNPL) or SB9 (SME Credit)
+| Category | Definition |
+|----------|------------|
+| **TRUE MOAT** | Cannot be copied by vendors with just an API. Requires local knowledge, integration work, or bespoke logic. |
+| **PARTIAL MOAT** | Some defensibility but vendors could replicate with moderate effort. |
+| **WEAK MOAT** | Almost pure model capability. Easy to replicate. |
 
 ---
 
-### 4.2 SHINHAN FINANCE
+### Per-Use-Case Hacker Advantage Scores
 
-| Rank | ID | Score | Verdict |
-|------|----|-------|---------|
-| 1 | SF12 | 7.3 | 🥇 TOP CHOICE |
-| 2 | SF11 | 7.0 | 🥇 TOP CHOICE |
-| 3 | SF3 | 6.9 | Strong choice |
-| 4 | SF4 | 6.8 | Strong choice |
-| 5 | SF5 | 6.8 | Strong choice |
-| 6 | SF8 | 6.5 | Moderate |
-| 7 | SF7 | 6.2 | Moderate |
-| 8 | SL3 | 6.2 | (Life, but overlapping) |
-| 9 | SF2 | 6.1 | Moderate |
-| 10 | SF1 | 5.7 | Low priority |
-| 11 | SF6 | 5.8 | Low priority |
-| 12 | SF10 | 5.3 | ⚠️ Avoid |
-| 13 | SF9 | 4.7 | ⚠️ Avoid |
+| Rank | ID | Use Case | Score | Verdict |
+|------|----|----------|-------|---------|
+| 1 | SB9 | AI-Driven SME Credit Scoring via POS Data | 9.5 | TRUE MOAT |
+| 2 | SF12 | MicroBiz Loan for Digital Economy | 9.3 | TRUE MOAT |
+| 3 | SF11 | Earned Wage Access & Salary-Linked Lending | 8.8 | TRUE MOAT |
+| 4 | SB3 | AI-Powered Loyalty & Personalized Offers | 8.7 | TRUE MOAT |
+| 5 | SF5 | Open Banking API for AI Credit Scoring | 8.4 | TRUE MOAT |
+| 6 | SB7 | SoftPOS for SOHO & Micro Businesses | 8.1 | TRUE MOAT |
+| 7 | SS4 | AI-Based End-to-End Accounting Automation | 8.0 | TRUE MOAT |
+| 8 | SS5 | RegTech / Compliance Tech | 7.9 | TRUE MOAT |
+| 9 | SL3 | AI-Powered Insurance Claims Fraud Detection | 7.8 | TRUE MOAT |
+| 10 | SF8 | AI Customer Behavior Prediction | 7.6 | TRUE MOAT |
+| 11 | SB6 | Embedded Installment & BNPL | 7.2 | PARTIAL MOAT |
+| 12 | SF4 | AI-based CRM | 6.8 | PARTIAL MOAT |
+| 13 | SB1 | AI Personal Financial Coach | 6.6 | PARTIAL MOAT |
+| 14 | SF1 | Intelligent Document Processing | 6.4 | PARTIAL MOAT |
+| 15 | SL4 | AI-Powered Digital Health Ecosystem | 6.3 | PARTIAL MOAT |
+| 16 | SB2 | AI-Powered Customer Engagement Automation | 6.1 | PARTIAL MOAT |
+| 17 | SF3 | Video Call Enhancement with eKYC | 6.1 | PARTIAL MOAT |
+| 18 | SF2 | Falsified Document Detection | 6.0 | PARTIAL MOAT |
+| 19 | SS6 | Digital Assets & Tokenized Securities | 6.0 | PARTIAL MOAT |
+| 20 | SL1 | Data Analytics & BI Platform | 6.0 | PARTIAL MOAT |
+| 21 | SF7 | AI for ICT Cyber Security | 5.9 | PARTIAL MOAT |
+| 22 | SB4 | AI Call Bot for Collections & Sales | 5.8 | PARTIAL MOAT |
+| 23 | SL2 | Voice AI Rating System | 5.8 | PARTIAL MOAT |
+| 24 | SS2 | AI-Enhanced Investment Experience | 5.6 | PARTIAL MOAT |
+| 25 | SF6 | BNPL/Personal Loan Partnership | 5.5 | PARTIAL MOAT |
+| 26 | SB5 | AI for Internal Reporting & BI Automation | 4.6 | WEAK MOAT |
+| 27 | SF9 | AI for Management BI Reports | 4.4 | WEAK MOAT |
+| 28 | SS3 | AI-Powered Financial Content Generation | 4.2 | WEAK MOAT |
+| 29 | SF10 | Voice-to-Text Solution | 4.0 | WEAK MOAT |
+| 30 | SB10 | AI-Powered Branch Traffic Prediction | 3.9 | WEAK MOAT |
+| 31 | SB8 | AI Voice Biometrics for Fraud Prevention | 3.7 | WEAK MOAT |
+| 32 | SS1 | AI-Native Rapid POC / Vibe Coding | 3.5 | WEAK MOAT |
 
-**Best Finance Pick:** SF12 (MicroBiz Loan)
-
----
-
-### 4.3 SHINHAN SECURITIES
-
-| Rank | ID | Score | Verdict |
-|------|----|-------|---------|
-| 1 | SS4 | 6.7 | 🥇 TOP CHOICE |
-| 2 | SS5 | 6.7 | 🥇 TOP CHOICE |
-| 3 | SS6 | 6.3 | High risk/reward |
-| 4 | SS2 | 5.9 | Moderate |
-| 5 | SS3 | 5.8 | Moderate |
-| 6 | SS1 | 5.1 | ⚠️ Low priority |
-
-**Best Securities Pick:** SS4 (Accounting Automation) or SS5 (RegTech)
-
----
-
-### 4.4 SHINHAN LIFE
-
-| Rank | ID | Score | Verdict |
-|------|----|-------|---------|
-| 1 | SL3 | 6.9 | 🥇 TOP CHOICE |
-| 2 | SL4 | 6.4 | Strong choice |
-| 3 | SL1 | 6.1 | Moderate |
-| 4 | SL2 | 6.3 | Moderate (tied) |
-
-**Best Life Pick:** SL3 (Claims Fraud Detection)
+[SOURCE: TRUE_HACKER_ADVANTAGE.md]
 
 ---
 
-## 5. STRATEGIC CLUSTERS
+### Best Chance To Win Ranking
 
-### Cluster A: Lending & Credit (9 use cases)
-- **Members:** SB6, SB9, SF5, SF11, SF12, SS4, SB7, SF6, SB1
-- **Total Score Avg:** 6.9
-- **Why Powerful:** Lending drives balance sheet growth, cross-sell, ecosystem lock-in
-- **Best in Cluster:** SF12 (MicroBiz Loan), SB6 (BNPL)
+> **Pure hacker advantage ranking (highest to lowest):**
+> 1.  SB9 - AI-Driven SME Credit Scoring via POS Data
+> 2.  SF12 - MicroBiz Loan for Digital Economy
+> 3.  SF11 - Earned Wage Access & Salary-Linked Lending
+> 4.  SB3 - AI-Powered Loyalty & Personalized Offers
+> 5.  SF5 - Open Banking API for AI Credit Scoring
 
-### Cluster B: Fraud & Security (4 use cases)
-- **Members:** SB8, SF2, SF3, SF7
-- **Total Score Avg:** 6.5
-- **Why Strategic:** Critical infrastructure, hard to replicate
-- **Best in Cluster:** SF3 (eKYC + Deepfake)
+These are the strongest because the moat comes from alternative data plumbing, Vietnam-specific underwriting rules, and workflow integration - not from the base model.
 
-### Cluster C: Customer Engagement (5 use cases)
-- **Members:** SB1, SB2, SB3, SF4, SS2
-- **Total Score Avg:** 6.3
-- **Why Important:** DAU/MAU, retention, cross-sell
-- **Best in Cluster:** SB3 (Loyalty)
-
-### Cluster D: Operational Efficiency (4 use cases)
-- **Members:** SB5, SB10, SF9, SF10
-- **Total Score Avg:** 4.7 ⚠️
-- **Why Weak:** Cost reduction, not revenue; boring demos
-- **Avoid:** All of them for hackathon
-
-### Cluster E: Digital Assets & New Markets (3 use cases)
-- **Members:** SS6, SL4, SF8
-- **Total Score Avg:** 6.4
-- **Why Future-Proof:** New growth vectors
-- **Best in Cluster:** SS6 (Digital Assets)
+[SOURCE: TRUE_HACKER_ADVANTAGE.md]
 
 ---
 
-## 6. RECOMMENDATIONS
+## Competitor & Market Analysis
+
+### Core Market Gaps
+1. **SME Credit Gap:** $10-15B USD in unmet demand for Vietnam SME lending
+2. **BNPL Penetration:** <5% of e-commerce GMV currently uses BNPL
+3. **Thin-file Exclusion:** <30% of SMEs and informal workers have formal credit access
+4. **Digital Seller Underservice:** Millions of marketplace sellers cannot access formal banking products
+
+### Competitor Product Landscape
+| Segment | Competitors | Gap Opportunity |
+|---------|-------------|-----------------|
+| BNPL | GrabPay, MoMo, Kredivo | Bank-integrated BNPL with existing customer base |
+| SME Lending | Traditional banks, fintechs | Alternative data underwriting using POS / marketplace data |
+| eKYC | Generic vendors | Vietnam-specific deepfake detection and workflow integration |
+| Claims Fraud | Insurance vendors | Local provider pattern recognition and rule-based anomaly detection |
+
+[SOURCE: HACKATHON_RESEARCH.md, TRUE_HACKER_ADVANTAGE.md]
+
+---
+
+## Strategic Recommendations
 
 ### FINAL RANKED LIST
 
 #### TIER 1: MUST-BUILD (High Impact, High Demo)
-
 | Rank | ID | Use Case | Score | Why Build |
 |------|----|----------|-------|-----------|
 | **#1** | **SB6** | Embedded Installment & BNPL | 7.4 | Best balance of demo impact + business value. Vietnam e-commerce is huge. Instant approval demo will wow judges. |
 | **#2** | **SB4** | AI Call Bot | 6.9 | Highest demo score (9/10). Voice AI is perfect for hackathon - live conversation demos are memorable. Vietnamese language = differentiator. |
 
 #### TIER 2: STRONG ALTERNATIVES (High Business Value)
-
 | Rank | ID | Use Case | Score | Why Build |
 |------|----|----------|-------|-----------|
 | **#3** | **SF12** | MicroBiz Loan | 7.3 | Massive underserved market. Huge NPV potential. Strategic for Shinhan's SME expansion. |
@@ -903,7 +881,6 @@
 | **#7** | **SL3** | Claims Fraud Detection | 6.9 | Direct cost savings. Good demo with suspicious claim flagging. |
 
 #### TIER 3: CONSIDER FOR DEPTH (Lower Priority)
-
 | Rank | ID | Use Case | Score | Why Consider |
 |------|----|----------|-------|---------------|
 | **#8** | **SF4** | AI-based CRM | 6.8 | Cross-sell powerhouse. Best for long-term strategic value. |
@@ -911,14 +888,13 @@
 | **#10** | **SB7** | SoftPOS | 6.7 | SME ecosystem capture. Good demo with NFC. |
 
 #### TIER 4: AVOID FOR HACKATHON
-
-| Rank | ID | Use Case | Score | Why Avoid |
-|------|----|----------|-------|-----------|
-| - | SB5 | Internal BI Reporting | 4.8 | Boring demo, no direct revenue |
-| - | SB10 | Branch Traffic | 3.9 | Lowest score. Operational only. |
-| - | SF9 | Management BI | 4.7 | Boring demo, cost reduction only |
-| - | SF10 | Voice-to-Text | 5.3 | Enabling tech, not standalone |
-| - | SS1 | Vibe Coding | 5.1 | Generic, no strategic value |
+| ID | Use Case | Score | Why Avoid |
+|----|----------|-------|-----------|
+| SB5 | Internal BI Reporting | 4.8 | Boring demo, no direct revenue |
+| SB10 | Branch Traffic | 3.9 | Lowest score. Operational only. |
+| SF9 | Management BI | 4.7 | Boring demo, cost reduction only |
+| SF10 | Voice-to-Text | 5.3 | Enabling tech, not standalone |
+| SS1 | Vibe Coding | 5.1 | Generic, no strategic value |
 
 ---
 
@@ -931,6 +907,8 @@
 **If I Want to GUARANTEE JOB CONTRACT:** SF12 (MicroBiz Loan) or SB9 (SME Credit) - Massive market, strategic value, data moat.
 
 **If I Want BOTH:** Build **SB6** as primary (demo winner) with **SF12** insights as secondary narrative (job winner).
+
+[SOURCE: USE_CASE_ANALYSIS.md, HACKER_ADVANTAGE_RESEARCH.md]
 
 ---
 
@@ -948,6 +926,34 @@
 - Shows deeper market understanding
 - Demonstrates SME strategic thinking
 - Explains data infrastructure play
+
+[SOURCE: USE_CASE_ANALYSIS.md]
+
+---
+
+## Key Findings
+
+1. **The moat is integration, not AI:** The strongest use cases use AI as the last 20%, not the first 80%. Real value comes from data plumbing and local heuristics.
+
+2. **Alternative underwriting is the strongest cluster:** SB9 + SF12 + SF11 + SF5 create durable data assets and target underserved Vietnam segments.
+
+3. **Demo impact and business value are often inversely correlated:** The best demos are not always the most strategic business opportunities.
+
+4. **SB6 is the sweet spot:** It balances excellent demo impact with strong business value and serves as an entry point to the larger SME ecosystem.
+
+5. **Operational efficiency use cases always lose:** Internal BI, reporting, and forecasting use cases score poorly on both demo impact and strategic value.
+
+[SOURCE: TRUE_HACKER_ADVANTAGE.md, HACKATHON_RESEARCH.md]
+
+---
+
+## Source References
+
+This document consolidates and removes duplicates from the following research artifacts:
+- USE_CASE_ANALYSIS.md (primary scoring source)
+- HACKER_ADVANTAGE_RESEARCH.md (strategic framing)
+- TRUE_HACKER_ADVANTAGE.md (hacker advantage deep dive)
+- HACKATHON_RESEARCH.md (complete use case overview)
 
 ---
 
