@@ -1,0 +1,20 @@
+name = "shinhan-pos"
+main = "src/index.ts"
+compatibility_date = "2026-04-12"
+
+[assets]
+directory = "../prototype/dist"
+not_found_handling = "single-page-application"
+
+[[d1_databases]]
+binding = "shinhan_pos_db"
+database_name = "shinhan-pos-db"
+database_id = "db8fe9f9-8696-4bee-b584-ee136e911beb"
+
+[[r2_buckets]]
+bucket_name = "shinhan-pos-receipts"
+binding = "shinhan_pos_receipts"
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "b317b7f678be47388cd7e55d168ce3b0"

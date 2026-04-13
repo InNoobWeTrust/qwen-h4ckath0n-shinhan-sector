@@ -1,0 +1,6 @@
+# Cloudflare API Token (for wrangler deploy)
+# Get from https://dash.cloudflare.com/profile/api-tokens
+CLOUDFLARE_API_TOKEN=
+
+# Demo merchant API key (hardcoded in auth.ts for prototype)
+# Client must send: Authorization: Bearer shinhan-pos-demo-key-2024

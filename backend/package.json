@@ -1,0 +1,19 @@
+{
+  "name": "shinhan-pos-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shinhan Soft POS API - Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev --local",
+    "build:frontend": "npm run build --prefix ../prototype",
+    "deploy": "npm run build:frontend && wrangler deploy",
+    "db:init": "wrangler d1 migrations apply shinhan-pos-db --local && wrangler d1 execute shinhan-pos-db --local --file=seeds/seed.sql",
+    "db:init:remote": "wrangler d1 migrations apply shinhan-pos-db --remote && wrangler d1 execute shinhan-pos-db --remote --file=seeds/seed.sql",
+    "db:reset": "wrangler d1 execute shinhan-pos-db --local --file=migrations/0001_initial.sql && wrangler d1 execute shinhan-pos-db --local --file=seeds/seed.sql",
+    "db:reset:remote": "wrangler d1 execute shinhan-pos-db --remote --file=migrations/0001_initial.sql && wrangler d1 execute shinhan-pos-db --remote --file=seeds/seed.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250415.0",
+    "wrangler": "^4.0.0"
+  }
+}
