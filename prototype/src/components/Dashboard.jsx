@@ -1,348 +1,342 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
-  ArrowRight,
+  AlertTriangle,
   BadgeCheck,
-  BarChart3,
-  CalendarClock,
-  ChartNoAxesCombined,
-  ChevronRight,
+  Boxes,
+  CircleDollarSign,
   ClipboardList,
-  CreditCard,
-  Landmark,
+  PackageOpen,
+  Printer,
+  Receipt,
   ScanSearch,
-  ShieldAlert,
   ShieldCheck,
+  ShoppingCart,
   Sparkles,
   Store,
-  TrendingUp,
-  Wallet,
+  UserRound,
 } from 'lucide-react'
-import StatsCard from './StatsCard'
 import RevenueChart from './RevenueChart'
-import TransactionTable from './TransactionTable'
-import CreditScoreModal from './CreditScoreModal'
-import LoanApplicationModal from './LoanApplicationModal'
-
-const revenueData = [
-  { day: '06/04', pos: 6.2, marketplace: 5.8, wallet: 2.8, revenue: 14.8 },
-  { day: '07/04', pos: 6.9, marketplace: 6.1, wallet: 2.9, revenue: 15.9 },
-  { day: '08/04', pos: 7.1, marketplace: 6.4, wallet: 2.9, revenue: 16.4 },
-  { day: '09/04', pos: 7.8, marketplace: 7.1, wallet: 3.2, revenue: 18.1 },
-  { day: '10/04', pos: 7.3, marketplace: 6.7, wallet: 3.3, revenue: 17.3 },
-  { day: '11/04', pos: 9.8, marketplace: 8.7, wallet: 4.1, revenue: 22.6 },
-  { day: '12/04', pos: 5.1, marketplace: 4.4, wallet: 3.0, revenue: 12.5 },
-]
-
-const transactions = [
-  {
-    id: 'SC240412-001',
-    time: '14:32',
-    description: 'Bán hàng POS - nước giải khát và đồ ăn nhanh',
-    amount: 1250000,
-    status: 'completed',
-    channel: 'POS Shinhan',
-    health: 'stable',
-  },
-  {
-    id: 'SC240412-002',
-    time: '13:48',
-    description: 'Thanh toán QR từ đơn TikTok Shop',
-    amount: 2180000,
-    status: 'completed',
-    channel: 'TikTok Shop',
-    health: 'growth',
-  },
-  {
-    id: 'SC240412-003',
-    time: '12:15',
-    description: 'Nạp ví điện tử MoMo cho khách lẻ',
-    amount: 680000,
-    status: 'completed',
-    channel: 'MoMo Wallet',
-    health: 'stable',
-  },
-  {
-    id: 'SC240412-004',
-    time: '11:06',
-    description: 'Thu hộ COD từ sàn thương mại điện tử',
-    amount: 3450000,
-    status: 'pending',
-    channel: 'Shopee',
-    health: 'review',
-  },
-  {
-    id: 'SC240412-005',
-    time: '09:41',
-    description: 'Bán combo hàng tiêu dùng buổi sáng',
-    amount: 940000,
-    status: 'completed',
-    channel: 'POS Shinhan',
-    health: 'stable',
-  },
-]
-
-const scoreBreakdown = [
-  { label: 'Độ đều doanh thu', score: 95, description: 'Doanh thu 4 tuần liên tiếp giữ mức ổn định, biến động thấp.' },
-  { label: 'Xu hướng tăng trưởng', score: 88, description: 'Kênh marketplace và POS duy trì đà tăng trưởng tháng này.' },
-  { label: 'Sức khỏe dòng tiền', score: 72, description: 'Dòng tiền tốt, cần tối ưu thêm chu kỳ nhập hàng để tăng dự phòng.' },
-  { label: 'Tỷ lệ hoàn trả', score: 98, description: 'Lịch sử hoàn trả gần như tuyệt đối đúng hạn.' },
-  { label: 'Lịch sử thanh toán', score: 85, description: 'Không có sự kiện quá hạn lớn trong 6 tháng gần nhất.' },
-]
-
-const sourceCards = [
-  {
-    title: 'POS & QR tại quầy',
-    value: '47 giao dịch/ngày',
-    detail: 'Đối soát doanh thu, tần suất thanh toán và thời gian cao điểm bán hàng.',
-    tone: 'from-sky-500/20 via-sky-400/8 to-white',
-  },
-  {
-    title: 'Marketplace',
-    value: '3 sàn đang kết nối',
-    detail: 'Đo tốc độ tăng trưởng, tỷ lệ hoàn hàng, lịch sử settlement từ Shopee, Lazada, TikTok Shop.',
-    tone: 'from-indigo-500/20 via-cyan-400/8 to-white',
-  },
-  {
-    title: 'Ví điện tử',
-    value: '92% giao dịch sạch',
-    detail: 'Nhận diện dòng tiền thực, phát hiện ví quay vòng và hành vi bất thường từ MoMo.',
-    tone: 'from-emerald-500/20 via-teal-400/8 to-white',
-  },
-]
-
-const trustSignals = [
-  'Giải ngân trong 72 giờ',
-  'APR 15-18%/năm',
-  'Hạn mức đề xuất 5-120 triệu VND',
-]
-
-const onboardingTimeline = [
-  {
-    day: 'Ngày 0-7',
-    title: 'Kết nối dữ liệu',
-    detail: 'Liên kết POS, Shopee/Lazada/TikTok Shop và ví MoMo để tạo hồ sơ giao dịch đầu tiên.',
-  },
-  {
-    day: 'Ngày 8-30',
-    title: 'Huấn luyện hồ sơ tín dụng',
-    detail: 'Mô hình chuẩn hóa dòng tiền, xác định mùa vụ, biên độ biến động và hành vi settlement.',
-  },
-  {
-    day: 'Ngày 31-60',
-    title: 'Theo dõi rủi ro thời gian thực',
-    detail: 'Kích hoạt cảnh báo gian lận, đối chiếu hoàn trả và chấm điểm uy tín hằng tuần.',
-  },
-  {
-    day: 'Ngày 61-90',
-    title: 'Mở hạn mức động',
-    detail: 'Đề xuất khoản vay đầu tiên, điều chỉnh hạn mức theo doanh thu và lịch sử hoàn trả mới nhất.',
-  },
-]
+import {
+  inventoryItems,
+  receipts,
+  revenueData,
+  staffMembers,
+  transactions,
+} from '../data/mockData'
 
 function formatCurrency(amount) {
   return amount.toLocaleString('vi-VN') + ' VND'
 }
 
-function Dashboard() {
-  const [showCreditScore, setShowCreditScore] = useState(false)
-  const [showLoanApplication, setShowLoanApplication] = useState(false)
+function formatShortCurrency(amount) {
+  if (amount >= 1000000) {
+    return `${(amount / 1000000).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} triệu VND`
+  }
 
-  const weeklyRevenue = useMemo(
-    () => revenueData.reduce((sum, item) => sum + item.revenue, 0),
+  return formatCurrency(amount)
+}
+
+function getReceiptPrintLabel(status) {
+  return status === 'printed' ? 'Đã in' : 'Chưa in'
+}
+
+function getReceiptInvoiceLabel(status) {
+  return status === 'issued' ? 'Đã xuất hóa đơn' : 'Chưa xuất hóa đơn'
+}
+
+function OverviewCard({ label, title, value, detail, change, icon, accent = 'sky' }) {
+  const IconComponent = icon
+  const accents = {
+    sky: {
+      ring: 'bg-sky-500/12 text-sky-700',
+      glow: 'from-sky-500/18 to-cyan-400/10',
+      line: 'bg-sky-500',
+      value: 'text-sky-700',
+    },
+    emerald: {
+      ring: 'bg-emerald-500/12 text-emerald-700',
+      glow: 'from-emerald-500/18 to-teal-400/10',
+      line: 'bg-emerald-500',
+      value: 'text-emerald-700',
+    },
+    amber: {
+      ring: 'bg-amber-500/12 text-amber-700',
+      glow: 'from-amber-500/18 to-orange-400/10',
+      line: 'bg-amber-500',
+      value: 'text-amber-700',
+    },
+    slate: {
+      ring: 'bg-slate-500/12 text-slate-700',
+      glow: 'from-slate-500/15 to-slate-300/10',
+      line: 'bg-slate-500',
+      value: 'text-slate-800',
+    },
+  }
+
+  const palette = accents[accent] ?? accents.sky
+
+  return (
+    <div className="group relative overflow-hidden rounded-[28px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+      <div className={`absolute inset-0 bg-gradient-to-br ${palette.glow} opacity-0 transition duration-300 group-hover:opacity-100`} />
+      <div className={`absolute left-0 top-6 h-16 w-1 rounded-r-full ${palette.line}`} />
+      <div className="relative flex items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-slate-500">{label}</p>
+          <p className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">{title}</p>
+          <p className={`mt-2 text-xl font-semibold ${palette.value}`}>{value}</p>
+          <p className="mt-2 text-sm text-slate-500">{detail}</p>
+        </div>
+        <div className={`rounded-2xl p-3 ${palette.ring}`}>
+          <IconComponent className="h-6 w-6" />
+        </div>
+      </div>
+      <p className="relative mt-5 text-sm font-medium text-emerald-600">{change}</p>
+    </div>
+  )
+}
+
+function Dashboard() {
+  const metrics = useMemo(() => {
+    const todayRevenue = Math.round(revenueData.reduce((sum, item) => sum + item.revenue, 0) * 1000000)
+    const activeOrders = transactions.filter((item) => item.fulfillmentStatus !== 'Hoàn tất').length
+    const lowStock = inventoryItems.filter((item) => item.stockOnHand <= item.reorderPoint)
+    const activeStaff = staffMembers.filter((item) => item.shiftStatus === 'on')
+    const latestReceipt = receipts[0]
+
+    return {
+      todayRevenue,
+      activeOrders,
+      lowStock,
+      activeStaff,
+      latestReceipt,
+    }
+  }, [])
+
+  const topSellingItems = useMemo(
+    () => [...inventoryItems].sort((a, b) => b.unitsSold7d - a.unitsSold7d).slice(0, 4),
     [],
   )
 
+  const actionSuggestions = [
+    {
+      title: 'Bổ sung ngay nhóm mì ly và nước tăng lực',
+      detail: '2 mã hàng còn dưới ngưỡng an toàn, dự kiến hết trước ca tối.',
+      tone: 'border-amber-200 bg-amber-50 text-amber-900',
+      icon: AlertTriangle,
+    },
+    {
+      title: 'In lại biên lai đơn Shopee giao trễ',
+      detail: '1 đơn đang chờ đối soát, nên in chứng từ để đối chiếu với đơn vị vận chuyển.',
+      tone: 'border-sky-200 bg-sky-50 text-sky-900',
+      icon: Receipt,
+    },
+    {
+      title: 'An toàn thanh toán',
+      detail: 'Chưa ghi nhận giao dịch bất thường trong 24 giờ, nhưng một ví MoMo cần đối chiếu số điện thoại người nhận.',
+      tone: 'border-emerald-200 bg-emerald-50 text-emerald-900',
+      icon: ScanSearch,
+    },
+  ]
+
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(186,230,253,0.72),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(45,212,191,0.16),_transparent_24%),linear-gradient(180deg,#eff6ff_0%,#f8fafc_38%,#f3f8ff_100%)] text-slate-700">
-      <div className="absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.18),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.16),_transparent_28%)]" />
-      <div className="absolute left-[-120px] top-40 h-72 w-72 rounded-full bg-sky-300/10 blur-3xl" />
-      <div className="absolute right-[-160px] top-[22rem] h-96 w-96 rounded-full bg-emerald-300/10 blur-3xl" />
-
-      <div className="relative mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-        <header className="overflow-hidden rounded-[36px] border border-white/20 bg-[linear-gradient(135deg,rgba(9,57,105,0.98)_0%,rgba(7,96,148,0.96)_48%,rgba(11,126,119,0.95)_100%)] p-6 text-white shadow-[0_36px_80px_rgba(8,47,73,0.34)] sm:p-8 lg:p-10">
-          <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.16),_transparent_48%)] lg:block" />
-
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_380px] lg:items-end">
+    <>
+      <div className="space-y-8">
+        <section className="overflow-hidden rounded-[36px] border border-white/20 bg-[linear-gradient(135deg,rgba(9,57,105,0.98)_0%,rgba(7,96,148,0.96)_48%,rgba(11,126,119,0.95)_100%)] p-6 text-white shadow-[0_36px_80px_rgba(8,47,73,0.34)] sm:p-8 lg:p-10">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_340px] lg:items-center">
             <div>
-                <div className="inline-flex items-center gap-3 rounded-full bg-white/12 px-4 py-2 text-sm font-medium text-sky-50 ring-1 ring-white/15 backdrop-blur">
-                  <Store className="h-4 w-4" />
-                  Nền tảng điểm tín dụng thay thế cho SME Việt Nam
-                </div>
-              <h1 className="mt-5 font-['Be_Vietnam_Pro',sans-serif] text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Shinhan Credit Connect
-              </h1>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-sky-50/92 sm:text-lg">
-                Chuyển dữ liệu POS, marketplace và ví điện tử thành điểm tín dụng minh bạch để ngân hàng nhìn thấy sức khỏe kinh doanh thực của SME Việt Nam.
+              <div className="inline-flex items-center gap-3 rounded-full bg-white/12 px-4 py-2 text-sm font-medium text-sky-50 ring-1 ring-white/15 backdrop-blur">
+                <Store className="h-4 w-4" />
+                Cửa Hàng Tiện Lợi 24/7 • Ngày kinh doanh 13/04/2026
+              </div>
+              <h2 className="mt-5 font-['Be_Vietnam_Pro',sans-serif] text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                Trung tâm điều hành bán hàng mỗi ngày
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-sky-50/92 sm:text-lg">
+                Theo dõi doanh thu theo giờ, đơn đa kênh, tình trạng kho và nhân viên đang ca trong cùng một màn hình.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                {trustSignals.map((signal) => (
-                  <div key={signal} className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm text-white/95 ring-1 ring-white/15 backdrop-blur-sm">
-                    <BadgeCheck className="h-4 w-4 text-emerald-200" />
-                    {signal}
-                  </div>
-                ))}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-400/14 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-emerald-200/20">
+                  <BadgeCheck className="h-4 w-4" />
+                  Ca sáng 06:00 - 14:00 đang hoạt động • 3 nhân viên trong ca
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm text-sky-50 ring-1 ring-white/15">
+                  <ShieldCheck className="h-4 w-4 text-emerald-200" />
+                  Máy in biên lai sẵn sàng • Đối soát cuối ngày lúc 22:00
+                </div>
               </div>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <button
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-sky-900 transition hover:-translate-y-0.5 hover:bg-sky-50"
-                  onClick={() => setShowLoanApplication(true)}
-                >
-                  Mở hồ sơ vay nhanh
-                  <ArrowRight className="h-4 w-4" />
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-sky-900 transition hover:-translate-y-0.5 hover:bg-sky-50">
+                  Tạo đơn mới
+                  <ShoppingCart className="h-4 w-4" />
                 </button>
-                <button
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-4 text-sm font-semibold text-white transition hover:bg-white/14"
-                  onClick={() => setShowCreditScore(true)}
-                >
-                  Xem cách tính điểm tín dụng
-                  <ChevronRight className="h-4 w-4" />
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-4 text-sm font-semibold text-white transition hover:bg-white/14">
+                  Xem kho hàng
+                  <Boxes className="h-4 w-4" />
+                </button>
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-4 text-sm font-semibold text-white transition hover:bg-white/14">
+                  In biên lai gần nhất
+                  <Printer className="h-4 w-4" />
                 </button>
               </div>
             </div>
 
-            <div className="relative rounded-[30px] border border-white/15 bg-white/10 p-5 shadow-[0_22px_45px_rgba(15,23,42,0.16)] backdrop-blur-sm">
-              <div className="flex items-center justify-between gap-3">
+            <div className="rounded-[30px] border border-white/15 bg-white/10 p-5 shadow-[0_22px_45px_rgba(15,23,42,0.16)] backdrop-blur-sm">
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm text-sky-100">Merchant đang theo dõi</p>
-                  <p className="mt-2 text-2xl font-semibold">Cửa Hàng Tiện Lợi 24/7</p>
-                  <p className="mt-2 text-sm text-sky-100">Merchant ID: SC001234 • Hồ Chí Minh City</p>
+                  <p className="text-sm text-sky-100">Tình hình vận hành hôm nay</p>
+                  <p className="mt-2 text-2xl font-semibold">Ca sáng đang ổn định</p>
+                  <p className="mt-2 text-sm text-sky-100">48 đơn đã hoàn tất • 4 đơn đang xử lý • 1 đơn chờ đối soát</p>
                 </div>
                 <div className="rounded-2xl bg-white/12 p-3 text-white ring-1 ring-white/15">
-                  <ShieldCheck className="h-6 w-6" />
+                  <ClipboardList className="h-6 w-6" />
                 </div>
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-3">
                 <div className="rounded-2xl bg-slate-950/18 p-4 ring-1 ring-white/8">
-                  <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">Điểm tín dụng</p>
-                  <p className="mt-3 text-3xl font-semibold">745</p>
-                  <p className="mt-2 text-sm text-emerald-200">Top 18% merchant cùng phân khúc</p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">Đơn đang xử lý</p>
+                  <p className="mt-3 text-3xl font-semibold">{metrics.activeOrders}</p>
+                  <p className="mt-2 text-sm text-sky-100">2 đơn tại quầy, 2 đơn từ Shopee và TikTok</p>
                 </div>
                 <div className="rounded-2xl bg-slate-950/18 p-4 ring-1 ring-white/8">
-                  <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">Phê duyệt</p>
-                  <p className="mt-3 text-3xl font-semibold">72h</p>
-                  <p className="mt-2 text-sm text-sky-100">Hồ sơ không cần tài sản đảm bảo</p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">Cảnh báo kho</p>
+                  <p className="mt-3 text-3xl font-semibold">{metrics.lowStock.length}</p>
+                  <p className="mt-2 text-sm text-emerald-200">2 mã hàng cần nhập trước ca tối</p>
                 </div>
               </div>
 
               <div className="mt-5 rounded-[26px] bg-white p-4 text-slate-900 shadow-[0_12px_30px_rgba(15,23,42,0.14)]">
-                <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-medium text-slate-500">Biên lai gần nhất</p>
+                <div className="mt-3 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-medium text-slate-500">Tổng doanh thu 7 ngày</p>
-                    <p className="mt-1 text-2xl font-semibold text-slate-950">{weeklyRevenue.toLocaleString('vi-VN')} triệu VND</p>
+                    <p className="text-lg font-semibold text-slate-950">{metrics.latestReceipt.receiptId}</p>
+                    <p className="mt-1 text-sm text-slate-500">{metrics.latestReceipt.channel} • Thu ngân {metrics.latestReceipt.cashierName}</p>
                   </div>
-                  <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-600">
-                    <TrendingUp className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {['POS', 'Shopee', 'TikTok Shop', 'MoMo'].map((source) => (
-                    <span key={source} className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">
-                      {source}
-                    </span>
-                  ))}
+                  <p className="text-sm font-semibold text-emerald-700">{formatCurrency(metrics.latestReceipt.total)}</p>
                 </div>
               </div>
             </div>
           </div>
-        </header>
+        </section>
 
-        <section className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatsCard
-            label="Hôm nay"
-            title="47 giao dịch"
-            value={formatCurrency(12450000)}
-            detail="Dòng tiền đến từ POS, QR và marketplace"
-            change="Tăng 12% so với hôm qua"
-            icon={Wallet}
-            accent="blue"
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <OverviewCard
+            label="Doanh thu hôm nay"
+            title={formatShortCurrency(metrics.todayRevenue)}
+            value="Theo 8 khung giờ bán hàng"
+            detail="Tăng mạnh ở khung 11:00 - 13:00 và 18:00 - 20:00"
+            change="Tăng 14% so với cùng ca hôm qua"
+            icon={CircleDollarSign}
+            accent="sky"
           />
-          <StatsCard
-            label="Tháng này"
-            title="1.423 giao dịch"
-            value={formatCurrency(385000000)}
-            detail="Doanh thu đủ điều kiện mở hạn mức vốn lưu động"
-            change="Tăng 8,5% so với tháng trước"
-            icon={BarChart3}
+          <OverviewCard
+            label="Đơn đang xử lý"
+            title={`${metrics.activeOrders} đơn`}
+            value="1 đơn chờ đối soát"
+            detail="Ưu tiên 2 đơn giao nhanh từ TikTok Shop và Shopee"
+            change="Thời gian xử lý trung bình 6 phút/đơn"
+            icon={ShoppingCart}
             accent="amber"
           />
-          <StatsCard
-            label="Điểm tín dụng"
-            title="745 / 850"
-            value="Xếp hạng Tốt"
-            detail="Mở giải thích minh bạch cho từng nhân tố"
-            change="Tăng 15 điểm trong tháng này"
-            icon={ShieldCheck}
+          <OverviewCard
+            label="Sản phẩm sắp hết"
+            title={`${metrics.lowStock.length} mã hàng`}
+            value="Mì ly cay còn 8 hộp"
+            detail="Nhóm đồ uống và đồ ăn nhanh cần châm thêm trước giờ cao điểm"
+            change="1 mã có nguy cơ hết trong 1,2 ngày"
+            icon={PackageOpen}
             accent="emerald"
-            onClick={() => setShowCreditScore(true)}
           />
-          <StatsCard
-            label="Cảnh báo rủi ro"
-            title="02 sự kiện"
-            value="Mức thấp"
-            detail="1 đối soát trễ, 1 cụm đơn cần theo dõi"
-            change="Không phát hiện ví quay vòng lớn"
-            icon={ShieldAlert}
-            accent="blue"
+          <OverviewCard
+            label="Nhân viên đang ca"
+            title={`${metrics.activeStaff.length} người`}
+            value="1 quản lý, 1 thu ngân, 1 bán hàng"
+            detail="Nhịp bán ổn định, chưa phát sinh nghẽn tại quầy"
+            change="Giá trị giỏ trung bình hiện tại 53.000 VND"
+            icon={UserRound}
+            accent="slate"
           />
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.75fr)_380px]">
-          <div className="min-w-0">
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.75fr)_380px]">
+          <div className="space-y-6 min-w-0">
             <RevenueChart data={revenueData} />
+
+            <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Đơn hàng đa kênh</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Hàng chờ xử lý từ quầy, Shopee, TikTok và MoMo</h3>
+                </div>
+                <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
+                  4 đơn đang xử lý • 1 đơn chờ đối soát
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-3">
+                {transactions.map((transaction) => (
+                  <div key={transaction.id} className="rounded-[24px] border border-slate-200 bg-slate-50 p-4 transition hover:border-sky-200 hover:bg-sky-50/50">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-base font-semibold text-slate-900">{transaction.id}</p>
+                          <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700">{transaction.channel}</span>
+                          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${transaction.priority === 'Cần ưu tiên' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}`}>
+                            {transaction.priority}
+                          </span>
+                        </div>
+                        <p className="mt-2 text-sm text-slate-600">{transaction.description}</p>
+                        <p className="mt-2 text-sm text-slate-500">{transaction.time} • {transaction.customer}</p>
+                      </div>
+
+                      <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[360px]">
+                        <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+                          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Thanh toán</p>
+                          <p className="mt-2 text-sm font-semibold text-slate-900">{transaction.paymentStatus}</p>
+                        </div>
+                        <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+                          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Xử lý đơn</p>
+                          <p className="mt-2 text-sm font-semibold text-slate-900">{transaction.fulfillmentStatus}</p>
+                        </div>
+                        <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+                          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Đối soát</p>
+                          <p className="mt-2 text-sm font-semibold text-slate-900">{transaction.settlementStatus}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="space-y-6">
             <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
-              <div className="rounded-[28px] bg-gradient-to-br from-slate-950 via-sky-950 to-cyan-800 p-5 text-white shadow-[0_20px_45px_rgba(15,23,42,0.24)]">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-100">Sản phẩm vay phù hợp</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight">Vay bổ sung vốn kinh doanh</h3>
-                <p className="mt-3 text-sm leading-6 text-sky-100">
-                  Hạn mức đề xuất 95.000.000 VND được tạo từ điểm 745, doanh thu ổn định và lịch sử settlement tốt.
-                </p>
-                <div className="mt-5 grid grid-cols-3 gap-3 text-center text-sm">
-                  <div className="rounded-2xl bg-white/10 px-3 py-3 ring-1 ring-white/10">
-                    <p className="text-sky-100">APR</p>
-                    <p className="mt-1 text-lg font-semibold">15-18%</p>
-                  </div>
-                  <div className="rounded-2xl bg-white/10 px-3 py-3 ring-1 ring-white/10">
-                    <p className="text-sky-100">SLA</p>
-                    <p className="mt-1 text-lg font-semibold">72h</p>
-                  </div>
-                  <div className="rounded-2xl bg-white/10 px-3 py-3 ring-1 ring-white/10">
-                    <p className="text-sky-100">Tài sản</p>
-                    <p className="mt-1 text-lg font-semibold">Không cần</p>
-                  </div>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-600">Cảnh báo kho hàng</p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Mã hàng cần nhập thêm trước ca tối</h3>
                 </div>
-                <button
-                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-sky-800 transition hover:-translate-y-0.5 hover:bg-sky-50"
-                  onClick={() => setShowLoanApplication(true)}
-                >
-                  Đăng ký vay vốn
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+                <div className="rounded-2xl bg-amber-50 p-3 text-amber-600">
+                  <PackageOpen className="h-5 w-5" />
+                </div>
               </div>
-
               <div className="mt-5 space-y-3">
-                {[
-                  { icon: ChartNoAxesCombined, title: 'Báo cáo chi tiết', desc: 'Tổng hợp hiệu suất doanh thu theo từng kênh bán.' },
-                  { icon: ClipboardList, title: 'Lịch sử giao dịch', desc: 'Theo dõi giao dịch mới nhất và trạng thái đối soát.' },
-                  { icon: CreditCard, title: 'Đề xuất hạn mức', desc: 'Cập nhật hạn mức tự động theo dữ liệu 7 ngày mới nhất.' },
-                ].map((action) => (
-                  <button
-                    key={action.title}
-                    className="flex w-full items-start gap-4 rounded-[24px] border border-slate-200 bg-slate-50 p-4 text-left transition hover:border-sky-200 hover:bg-sky-50"
-                  >
-                    <div className="rounded-2xl bg-white p-3 text-sky-700 shadow-sm">
-                      <action.icon className="h-5 w-5" />
+                {metrics.lowStock.map((item) => (
+                  <div key={item.sku} className="rounded-2xl border border-amber-100 bg-amber-50/80 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold text-amber-900">{item.name}</p>
+                        <p className="mt-1 text-sm text-amber-800">{item.stockOnHand} còn lại • Bán {item.unitsSoldToday} đơn vị hôm nay</p>
+                      </div>
+                      <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-amber-800">
+                        {item.estimatedDaysRemaining.toLocaleString('vi-VN')} ngày
+                      </span>
                     </div>
-                    <div>
-                      <p className="font-semibold text-slate-900">{action.title}</p>
-                      <p className="mt-1 text-sm text-slate-500">{action.desc}</p>
-                    </div>
-                  </button>
+                    <p className="mt-3 text-sm text-amber-800">Nhà cung cấp: {item.supplier} • Điểm đặt lại: {item.reorderPoint}</p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -350,146 +344,166 @@ function Dashboard() {
             <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-rose-600">Fraud Lens</p>
-                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Kiểm soát gian lận theo luồng tiền</h3>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600">Nhân viên trong ca</p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Theo dõi hiệu suất tại quầy theo thời gian thực</h3>
                 </div>
-                <div className="rounded-2xl bg-rose-50 p-3 text-rose-500">
-                  <ScanSearch className="h-5 w-5" />
+                <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-600">
+                  <UserRound className="h-5 w-5" />
                 </div>
               </div>
               <div className="mt-5 space-y-3">
-                <div className="rounded-2xl border border-rose-100 bg-rose-50/80 p-4">
-                  <p className="text-sm font-semibold text-rose-800">Synthetic order cluster</p>
-                  <p className="mt-1 text-sm text-rose-700">02 đơn hàng có giá trị lặp lại từ cùng 1 cụm tài khoản, hệ thống đang giảm trọng số scoring.</p>
+                {metrics.activeStaff.map((staff) => (
+                  <div key={staff.staffId} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">{staff.name}</p>
+                        <p className="mt-1 text-sm text-slate-500">{staff.role} • Vào ca {staff.shiftStart}</p>
+                      </div>
+                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        {staff.shiftStatus}
+                      </span>
+                    </div>
+                    <div className="mt-4 grid grid-cols-3 gap-3 text-sm">
+                      <div className="rounded-2xl bg-white px-3 py-3">
+                        <p className="text-slate-500">Số đơn</p>
+                        <p className="mt-1 font-semibold text-slate-900">{staff.salesCount}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white px-3 py-3">
+                        <p className="text-slate-500">Doanh số</p>
+                        <p className="mt-1 font-semibold text-slate-900">{formatShortCurrency(staff.salesAmount)}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white px-3 py-3">
+                        <p className="text-slate-500">Giỏ TB</p>
+                        <p className="mt-1 font-semibold text-slate-900">{formatCurrency(staff.averageBasket)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Gợi ý hành động hôm nay</p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Ưu tiên các việc cần xử lý trong ca</h3>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-900">Circular wallet flows</p>
-                  <p className="mt-1 text-sm text-slate-500">Không ghi nhận dòng tiền quay vòng bất thường trên ví MoMo trong 30 ngày gần nhất.</p>
+                <div className="rounded-2xl bg-sky-50 p-3 text-sky-700">
+                  <Sparkles className="h-5 w-5" />
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-900">Velocity anomaly</p>
-                  <p className="mt-1 text-sm text-slate-500">Tần suất giao dịch tăng 1,3x vào cuối tuần, phù hợp mẫu bán hàng theo khung giờ.</p>
-                </div>
+              </div>
+              <div className="mt-5 space-y-3">
+                {actionSuggestions.map((item) => (
+                  <div key={item.title} className={`rounded-2xl border p-4 ${item.tone}`}>
+                    <div className="flex items-start gap-3">
+                      <item.icon className="mt-0.5 h-5 w-5 shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold">{item.title}</p>
+                        <p className="mt-1 text-sm leading-6 opacity-85">{item.detail}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <section className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1.05fr)_340px]">
           <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Hợp nhất dữ liệu</p>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Hợp nhất dữ liệu thành một profile có thể phê duyệt</h3>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Sản phẩm bán chạy</p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Top SKU kéo doanh thu hôm nay</h3>
               </div>
-              <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
-                3 nguồn dữ liệu {'->'} 1 điểm {'->'} 1 đề xuất vay
+              <div className="rounded-2xl bg-sky-50 p-3 text-sky-700">
+                <ShoppingCart className="h-5 w-5" />
               </div>
             </div>
-
-            <div className="mt-6 grid gap-4 lg:grid-cols-3">
-              {sourceCards.map((card) => (
-                <div key={card.title} className={`rounded-[26px] border border-slate-200 bg-gradient-to-br ${card.tone} p-5`}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Nguồn dữ liệu</p>
-                  <h4 className="mt-3 text-xl font-semibold text-slate-900">{card.title}</h4>
-                  <p className="mt-2 text-sm font-semibold text-sky-700">{card.value}</p>
-                  <p className="mt-4 text-sm leading-6 text-slate-600">{card.detail}</p>
+            <div className="mt-6 space-y-3">
+              {topSellingItems.map((item, index) => (
+                <div key={item.sku} className="flex items-center justify-between gap-4 rounded-[24px] border border-slate-200 bg-slate-50 p-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white">
+                      #{index + 1}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">{item.name}</p>
+                      <p className="mt-1 text-sm text-slate-500">{item.category} • {item.supplier}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-slate-900">{item.unitsSold7d} đơn vị / 7 ngày</p>
+                    <p className="mt-1 text-sm text-slate-500">Hôm nay bán {item.unitsSoldToday} đơn vị</p>
+                  </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-6 rounded-[28px] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_20px_50px_rgba(15,23,42,0.24)]">
-              <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
-                <div>
-                  <p className="text-sm text-sky-100">Dữ liệu thực</p>
-                  <p className="mt-2 text-xl font-semibold">POS + marketplace + e-wallet</p>
-                </div>
-                <ArrowRight className="hidden h-5 w-5 text-sky-200 md:block" />
-                <div>
-                  <p className="text-sm text-sky-100">Điểm có thể giải thích</p>
-                  <p className="mt-2 text-xl font-semibold">Revenue consistency, growth, cash health</p>
-                </div>
-                <ArrowRight className="hidden h-5 w-5 text-sky-200 md:block" />
-                <div>
-                  <p className="text-sm text-sky-100">Đề xuất khoản vay</p>
-                  <p className="mt-2 text-xl font-semibold">95M VND trong 72h</p>
-                </div>
-              </div>
             </div>
           </div>
 
           <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Onboarding 90 ngày</p>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Lộ trình từ merchant mới đến merchant được cấp vốn</h3>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">Biên lai và hóa đơn</p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Chứng từ gần đây cần in hoặc xuất hóa đơn</h3>
               </div>
-              <div className="rounded-2xl bg-sky-50 p-3 text-sky-700">
-                <CalendarClock className="h-5 w-5" />
+              <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+                <Receipt className="h-5 w-5" />
               </div>
             </div>
 
-            <div className="mt-6 space-y-4">
-              {onboardingTimeline.map((item, index) => (
-                <div key={item.day} className="flex gap-4 rounded-[24px] border border-slate-200 bg-slate-50 p-4">
-                  <div className="flex flex-col items-center">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-700 text-sm font-semibold text-white">
-                      {index + 1}
+            <div className="mt-6 space-y-3">
+              {receipts.map((receiptItem) => (
+                <div key={receiptItem.receiptId} className="rounded-[24px] border border-slate-200 bg-slate-50 p-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-semibold text-slate-900">{receiptItem.receiptId}</p>
+                        <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700">{receiptItem.channel}</span>
+                      </div>
+                       <p className="mt-2 text-sm text-slate-500">{receiptItem.issuedAt} • {receiptItem.cashierName} • {receiptItem.customerName || 'Khách lẻ'}</p>
                     </div>
-                    {index < onboardingTimeline.length - 1 ? <div className="mt-2 h-full w-px bg-slate-200" /> : null}
+                    <div className="text-left sm:text-right">
+                      <p className="font-semibold text-slate-900">{formatCurrency(receiptItem.total)}</p>
+                      <p className="mt-1 text-sm text-slate-500">{receiptItem.lineItems.length} dòng hàng</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">{item.day}</p>
-                    <p className="mt-2 text-lg font-semibold text-slate-900">{item.title}</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-500">{item.detail}</p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                     <span className={`rounded-full px-3 py-1 text-xs font-semibold ${receiptItem.printStatus === 'printed' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                       {getReceiptPrintLabel(receiptItem.printStatus)}
+                     </span>
+                     <span className={`rounded-full px-3 py-1 text-xs font-semibold ${receiptItem.invoiceStatus === 'issued' ? 'bg-sky-100 text-sky-700' : 'bg-slate-200 text-slate-700'}`}>
+                       {getReceiptInvoiceLabel(receiptItem.invoiceStatus)}
+                     </span>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="mt-6 rounded-[24px] border border-emerald-100 bg-emerald-50 p-4">
-              <div className="flex items-start gap-3">
-                <Sparkles className="mt-0.5 h-5 w-5 text-emerald-600" />
-                <p className="text-sm leading-6 text-emerald-900">
-                  Sau 90 ngày, merchant có đủ dữ liệu để mở hạn mức động và nhận đề xuất tài trợ chu kỳ nhập hàng theo mùa.
-                </p>
+          <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+            <div className="rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900 to-sky-900 p-5 text-white shadow-[0_20px_45px_rgba(15,23,42,0.24)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-100">Dòng tiền cuối ca</p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight">Theo dõi khoản cần đối chiếu trước khi chốt ngày</h3>
+              <p className="mt-3 text-sm leading-6 text-sky-100">
+                Tập trung xử lý chứng từ còn treo, đơn hoàn trả và giao dịch ví điện tử cần xác nhận để tránh chậm đối soát sang ngày hôm sau.
+              </p>
+              <div className="mt-5 grid gap-3 text-sm">
+                <div className="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/10">
+                  <p className="text-sky-100">Đơn cần rà soát</p>
+                  <p className="mt-1 text-lg font-semibold">2 đơn hoàn trả và 1 giao dịch chờ xác nhận</p>
+                </div>
+                <div className="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/10">
+                  <p className="text-sky-100">Mốc xử lý</p>
+                  <p className="mt-1 text-lg font-semibold">Hoàn tất đối chiếu trước 22:00</p>
+                </div>
               </div>
             </div>
           </div>
         </section>
-
-        <section className="mt-8">
-          <TransactionTable transactions={transactions} />
-        </section>
-
-        <section className="mt-8 grid gap-4 rounded-[32px] border border-white/70 bg-white/75 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Với góc nhìn của ngân hàng</p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">Đây là giao diện để tin vào dữ liệu thay thế</h3>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500">
-              Một màn hình duy nhất kết nối dòng tiền thực, giải thích score rõ ràng, hiện cảnh báo gian lận và chốt sản phẩm vay phù hợp cho SME.
-            </p>
-          </div>
-          <button
-            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5"
-            onClick={() => setShowLoanApplication(true)}
-          >
-            Xem demo hồ sơ vay
-            <Landmark className="h-4 w-4" />
-          </button>
-        </section>
       </div>
-
-      <CreditScoreModal
-        open={showCreditScore}
-        onClose={() => setShowCreditScore(false)}
-        score={745}
-        maxScore={850}
-        change={15}
-        breakdown={scoreBreakdown}
-      />
-      <LoanApplicationModal open={showLoanApplication} onClose={() => setShowLoanApplication(false)} />
-    </div>
+    </>
   )
 }
 

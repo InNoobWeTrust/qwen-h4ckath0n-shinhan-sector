@@ -42,13 +42,13 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[32px] bg-white p-6 shadow-[0_32px_80px_rgba(15,23,42,0.28)] animate-[fadeUp_.28s_ease-out]"
+        className="animate-[fadeUp_.28s_ease-out] max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[32px] bg-white p-6 shadow-[0_32px_80px_rgba(15,23,42,0.28)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-5">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Chi tiết xếp hạng</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Điểm tín dụng doanh nghiệp có thể giải thích</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-700">Chi tiết hỗ trợ vốn</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Dữ liệu vận hành làm cơ sở cho đề xuất hiện tại</h2>
           </div>
           <button className="rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700" onClick={onClose}>
             <CircleX className="h-6 w-6" />
@@ -59,22 +59,22 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
           <div className="space-y-5 rounded-[28px] bg-gradient-to-br from-sky-50 via-white to-emerald-50 p-6">
             <Gauge score={score} maxScore={maxScore} />
             <div className="text-center">
-              <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">Xếp hạng Tốt</span>
-              <p className="mt-3 text-sm leading-6 text-slate-500">Merchant đủ điều kiện nhận hạn mức vay quay vòng với cảnh báo rủi ro mức thấp.</p>
+              <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">Dữ liệu vận hành ổn định</span>
+              <p className="mt-3 text-sm leading-6 text-slate-500">Doanh thu, đối soát và lịch sử thanh toán đang ở mức phù hợp để tham chiếu cho giải pháp vốn lưu động.</p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Tăng điểm</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Biến động tháng</p>
                 <p className="mt-2 text-xl font-semibold text-emerald-700">+{change}</p>
               </div>
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Approval odds</p>
-                <p className="mt-2 text-xl font-semibold text-sky-700">87%</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Ổn định vận hành</p>
+                <p className="mt-2 text-xl font-semibold text-sky-700">Tốt</p>
               </div>
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Fraud status</p>
-                <p className="mt-2 text-xl font-semibold text-slate-900">Thấp</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">An toàn thanh toán</p>
+                <p className="mt-2 text-xl font-semibold text-slate-900">Mức thấp</p>
               </div>
             </div>
 
@@ -82,7 +82,7 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
               <div className="flex items-start gap-3">
                 <Sparkles className="mt-0.5 h-5 w-5 text-amber-500" />
                 <p>
-                  Điểm đã tăng <strong>{change} điểm</strong> trong tháng này nhờ doanh thu ổn định, tỷ lệ hoàn trả cao và lịch sử thanh toán tốt hơn.
+                  Chỉ số tổng hợp tăng <strong>{change} điểm</strong> trong tháng này nhờ doanh thu ổn định hơn, tỷ lệ đối soát đúng hạn cao và chu kỳ dòng tiền đều.
                 </p>
               </div>
             </div>
@@ -91,16 +91,16 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
               <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4">
                 <div className="flex items-center gap-2 text-emerald-700">
                   <ShieldCheck className="h-5 w-5" />
-                  <p className="font-semibold">Yếu tố kéo điểm lên</p>
+                  <p className="font-semibold">Yếu tố đang hỗ trợ tốt</p>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-500">Revenue consistency mạnh, settlement on-time và return rate thấp giúp score giữ vững ở nhóm tốt.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-500">Doanh thu đều, tỷ lệ đối soát đúng hạn cao và hoàn trả thấp giúp hồ sơ vận hành giữ mức ổn định.</p>
               </div>
               <div className="rounded-2xl border border-rose-100 bg-white/90 p-4">
                 <div className="flex items-center gap-2 text-rose-700">
                   <AlertTriangle className="h-5 w-5" />
-                  <p className="font-semibold">Yếu tố cần theo dõi</p>
+                  <p className="font-semibold">Điểm cần theo dõi</p>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-500">Có 1 cụm đơn hàng giá trị lặp lại cần tiếp tục đối chiếu để tránh làm giảm hạn mức được mở.</p>
+                <p className="mt-3 text-sm leading-6 text-slate-500">Có một cụm đơn hàng giá trị lặp lại cần tiếp tục đối chiếu để tránh làm chậm chu kỳ đối soát trong tuần này.</p>
               </div>
             </div>
           </div>
@@ -126,9 +126,9 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
             </div>
 
             <div className="mt-5 rounded-[24px] border border-slate-200 bg-slate-950 p-5 text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-100">Góc nhìn của ngân hàng</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-100">Cơ sở tham chiếu</p>
               <p className="mt-3 text-sm leading-7 text-slate-200">
-                Merchant này không cần dựa vào tài sản đảm bảo. Bằng chứng quan trọng nhất là dòng doanh thu có thật, nhiều kênh, và lịch sử settlement được theo dõi liên tục.
+                Đề xuất hiện tại bám theo dữ liệu doanh thu, nhịp bán hàng, lịch sử đối soát và chất lượng thanh toán đã được theo dõi liên tục từ nhiều kênh bán.
               </p>
             </div>
           </div>
