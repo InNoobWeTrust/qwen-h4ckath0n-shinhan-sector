@@ -1,18 +1,17 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Workers
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'prototype/**'
   workflow_dispatch:
 
-permissions:
-  contents: write
+concurrency:
+  group: deploy
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  deploy-worker:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,18 +22,32 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: prototype/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: npm ci
-        working-directory: prototype
 
-      - name: Build
-        run: npm run build
-        working-directory: prototype
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: backend
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: prototype/dist
+      - name: Run database migrations
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler d1 migrations apply shinhan-pos-db --remote
+        working-directory: backend
+
+      - name: Build frontend
+        run: |
+          cd prototype
+          npm ci
+          npm run build
+
+      - name: Deploy to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy --cwd backend

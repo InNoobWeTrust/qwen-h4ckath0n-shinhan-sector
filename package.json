@@ -1,0 +1,19 @@
+{
+  "name": "shinhan-pos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shinhan Soft POS - Merchant Operating System",
+  "scripts": {
+    "dev": "npm run build:frontend && wrangler dev --local --prefix backend",
+    "dev:api": "wrangler dev --local --prefix backend",
+    "dev:frontend": "npm run dev --prefix prototype",
+    "build:frontend": "npm run build --prefix prototype",
+    "deploy": "npm run build:frontend && wrangler deploy --prefix backend",
+    "db:init": "npm run db:init --prefix backend",
+    "db:init:remote": "npm run db:init:remote --prefix backend",
+    "db:reset:remote": "npm run db:reset:remote --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

@@ -29,3 +29,11 @@ yarn-error.log*
 .idea/
 
 .kilo/plans
+
+# Wrangler
+backend/.wrangler/
+
+# Lock files (keep for CI reproducibility)
+package-lock.json
+backend/package-lock.json
+prototype/bun.lock
