@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+.react-router/types/
+
+# Wrangler
+.wrangler/
+
+# Environment
+.dev.vars
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
