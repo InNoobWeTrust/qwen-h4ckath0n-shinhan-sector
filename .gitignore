@@ -30,10 +30,6 @@ yarn-error.log*
 
 .kilo/plans
 
-# Wrangler
-backend/.wrangler/
-
-# Lock files (keep for CI reproducibility)
-package-lock.json
-backend/package-lock.json
-prototype/bun.lock
+# Cloudflare Workers
+app/.wrangler/
+.dev.vars
