@@ -21,13 +21,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: |
-            package-lock.json
-            backend/package-lock.json
-
-      - name: Install root dependencies
-        run: npm ci
 
       - name: Install backend dependencies
         run: npm ci
@@ -42,12 +35,13 @@ jobs:
 
       - name: Build frontend
         run: |
-          cd prototype
           npm ci
           npm run build
+        working-directory: prototype
 
       - name: Deploy to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx wrangler deploy --cwd backend
+        run: npx wrangler deploy
+        working-directory: backend
