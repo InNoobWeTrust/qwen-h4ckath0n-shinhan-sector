@@ -1,233 +1,223 @@
+# Shinhan Soft POS
+
+## The Merchant Operating System with Embedded Credit
+
+**Shinhan Future's Lab Hackathon**
+
+---
+
 # The Problem
 
-## The Credit Gap
+## Vietnamese SME Merchants Struggle Every Day
 
-<div class="grid">
-
-<div class="card">
-
-**What Banks Want:**
-- 6 months statements
-- Tax returns
-- Collateral
-- Formal business registration
-
-</div>
-
-<div class="card">
-
-**What SMEs Have:**
-- Cash registers (POS)
-- Shopee/Lazada orders
-- TikTok Shop sales
-- MoMo wallet transactions
-- Daily sales receipts
-
-</div>
-
-</div>
+| **Daily Pain Points** | **Current Reality** |
+|---|---|
+| Managing POS, Shopee, TikTok, MoMo separately | 3 different apps for sales channels |
+| Counting inventory manually every evening | Excel spreadsheets for inventory |
+| Tracking staff hours and shift schedules | Paper timesheets for staff |
+| Reconciling payments from 5+ platforms | 2+ hours nightly reconciliation |
+| Cash flow gaps between sales and settlements | No visibility when cash will run out |
 
 ---
 
-# The Reality
+# The Credit Gap
 
-## Creditworthy Businesses Getting Rejected
+| What Banks Want | What SMEs Have |
+|-----------------|----------------|
+| 6 months statements | Cash registers (POS) |
+| Tax returns | Shopee/Lazada/TikTok sales |
+| Collateral | MoMo wallet transactions |
+| Formal business registration | Daily sales receipts |
 
-<div class="big-number">40.5%</div>
-
-of Vietnam's firms have bank loans
-
-**World Bank Enterprise Survey: Many SMEs underserved by traditional credit**
-
-**The Data Reality:**
-- Street food vendor: **50+ transactions/day**
-- TikTok seller: **200 orders/week**
-- POS merchant: **Monthly sales in digital systems**
-- **Existing solutions use ONE data source. We combine MULTIPLE.**
-
----
-
-# The Insight
-
-## Why do banks reject SMEs?
-
-**They look at the wrong data.**
-
-## What data do SMEs actually generate?
-
-<div class="grid">
-
-- Sales receipts
-- Order volumes
-- Settlement patterns
-- Customer returns
-
-</div>
-
-## What if we used that data?
-
-<div class="highlight">We'd see businesses banks can't see.</div>
+> **40.5%** of Vietnam's firms have bank loans - World Bank Enterprise Survey
 
 ---
 
 # The Solution
 
-## Shinhan Credit Connect
+## Shinhan Soft POS
 
-We combine data sources banks ignore into a credit score that reflects actual business health:
+### The Alternative Credit Layer for Vietnam's SMEs
 
-<div class="grid">
+> **Alternative Credit Foundation**
+>
+> - POS + marketplace + e-wallet data fusion
+> - ML-based normalization turns fragmented activity into one merchant timeline
+> - Alternative credit profile built from explainable transaction patterns
+> - Signals banks can actually underwrite against
 
-- **POS transaction data** (SB9)
-- **Marketplace sales** (SF12)
-- **E-wallet cash flow** (SF12)
-- **Settlement timing patterns**
-- **Seasonal variations**
-- **Return/refund behavior**
-
-</div>
-
----
-
-# The Demo
-
-## From Transaction to Loan Offer
-
-<div class="demo-grid">
-
-<div><strong>Step 1:</strong> Merchant installs SOL POS / connects marketplace</div>
-
-<div><strong>Step 2:</strong> Transaction data flows in over time</div>
-
-<div><strong>Step 3:</strong> Credit score starts forming</div>
-
-<div><strong>Step 4:</strong> After 90 days: pattern emerges</div>
-
-<div><strong>Step 6:</strong> Illustrative loan offer generated</div>
-
-<div><strong>Step 7:</strong> Funds: Decision in 72 hours</div>
-
-</div>
-
-*This is a mock scenario for demonstration. We show the CONCEPT of data → score → recommendation.*
+> **Embedded Capital Experience**
+>
+> - Embedded working capital at the point of need
+> - 72-hour approval target with policy-based pre-screening
+> - No traditional bureau file required
+> - Human-reviewed underwriting inside daily utility
 
 ---
 
-# How It Works
+# Daily Utility
 
-## Layer 1: POS Data (SB9)
+## This is what merchants do EVERY DAY
 
-<div class="card">
-
-- Daily sales volume
-- Transaction count
-- Average ticket size
-- Refund rate
-- Settlement timing (daily/weekly)
-- Peak hours patterns
-
-</div>
+| 🌅 **Morning** | ☀️ **Midday** | 🌆 **Evening** | 📈 **Any Time** |
+|---|---|---|---|
+| Check overnight orders; review inventory levels; assign staff shifts | Process in-store sales; fulfill marketplace orders; print customer receipts | Auto-reconcile all payments; see low-stock alerts; close shift reports | Check sales performance; manage staff; restock supplies |
 
 ---
 
-# How It Works
+# Engagement Thesis
 
-## Layer 2: Marketplace Data (SF12)
+## Why merchants come back every single day
 
-<div class="card">
+> ### ❌ This is NOT a loan app
+>
+> Merchants don't install loan apps. They install tools that run their business.
 
-- GMV from Shopee/Lazada/TikTok
-- Order completion rate
-- Return rate
-- Cancellation rate
-- Response time
-- Review scores
-
-</div>
-
----
-
-# How It Works
-
-## Layer 3: E-Wallet Data (SF12)
-
-<div class="card">
-
-- Cash flow patterns
-- Inflow/outflow ratio
-- Recurring payments
-- Balance trends
-
-</div>
+> ### ✅ This is their operating system
+>
+> - Their business lives inside this app
+> - Trust is built through daily usage
+> - Transaction data accumulates naturally
+> - Financing appears only when they need it
 
 ---
 
-# How It Works
+# Embedded Capital
 
-## The Scoring Model
+## Financing when it matters, not as an ad
 
-<div class="grid">
+> **Contextual Triggers**
+>
+> - 📦 Low stock alert -> **Restock financing**
+> - ⏳ Settlement delayed -> **Cash flow advance**
+> - 📈 Sales growing fast -> **Growth capital**
 
-<div class="card">
-
-**Signals We Analyze:**
-- Sales Consistency
-- Growth Trend
-- Cash Flow Health
-- Return Rate
-- Settlement History
-- Seasonal Patterns
-
-</div>
-
-<div class="card">
-
-**Weights:**
-- Weights are illustrative - to be validated with pilot data
-- Model will be backtested against historical outcomes
-
-</div>
-
-</div>
-
-<div style="margin-top: 20px; color: #666;">
-<em>This is a proof of concept. Specific weights and thresholds determined during pilot.</em>
-</div>
+> **How it works**
+>
+> - Based on real business performance
+> - No separate application
+> - No credit check required
+> - Fast, transparent, fair terms
 
 ---
 
-# Fraud Prevention
+# The Loan Product
 
-## How We Detect Manipulation
+## Clean loan terms for eligible merchants
 
-**3 Fraud Patterns We Watch:**
+| Loan Range | $200 - $5,000 |
+|------------|---------------|
+| Interest Rate | 15-18% APR |
+| Term Length | 3, 6, or 12 months |
+| Approval Time | 72 hours |
+| Min. History | 90 days |
 
-<div class="fraud-grid">
+---
 
-<div class="fraud-box">
-<div class="fraud-icon">🔄</div>
-<div class="fraud-title">Circular Wallet Flows</div>
-<div class="fraud-desc">Same money moving between accounts to inflate transaction volume</div>
-</div>
+# Demo Flow
 
-<div class="fraud-box">
-<div class="fraud-icon">🛒</div>
-<div class="fraud-title">Synthetic Orders</div>
-<div class="fraud-desc">Fake marketplace orders with no actual delivery</div>
-</div>
+## How merchant activity turns into financing
 
-<div class="fraud-box">
-<div class="fraud-icon">⚡</div>
-<div class="fraud-title">Velocity Anomalies</div>
-<div class="fraud-desc">Unusual spike in transactions at odd hours</div>
-</div>
+1. **Step 1 - Install SOL POS** -> Merchant starts using the operating tool every day.
+2. **Step 2 - Data Normalization** -> Transactions and consented mobile or telco signals are cleaned and standardized.
+3. **Step 3 - Feature Profile Forms** -> Audit-ready transaction features populate the scorecard profile.
+4. **Step 4 - 90 Days of History** -> Seasonality, stability, and risk features become reliable.
+5. **Step 5 - Policy Eligibility** -> Policy rules + score threshold determine eligibility for underwriter review.
+6. **Step 6 - Loan Offer Shown** -> Illustrative amount and terms appear inside the workflow.
+7. **Step 7 - Funds in 72 Hours** -> Approved merchants receive funds after underwriting and policy checks.
 
-</div>
+---
 
-**How We Respond:**
-- Flag for human review
-- Require additional verification
-- Score penalty applied
+# AI Governance Framework
+
+## Explainable scoring with human review by default
+
+> **Human-in-the-Loop as Default**
+>
+> - Every score/recommendation -> human review
+> - Fixed reason codes accompany each output
+> - LLM translates only approved reason codes
+> - Inputs, weights, bins logged for audit
+
+> **What AI Actually Does (scoring path)**
+>
+> - Transaction cleaning and categorization
+> - Merchant behavior feature engineering
+> - WoE logistic scorecard -> primary model
+> - EBM challenger -> validation only
+
+> **What AI Does Not Do**
+>
+> - Final credit decisions (bankers decide)
+> - Custom explanations (approved codes only)
+> - Black-box inference in scoring path
+
+---
+
+# Explainable Credit Intelligence Layer
+
+## Where Shinhan's underwriting logic stays transparent
+
+| **Capability** | **What it does** |
+|---|---|
+| **ML-Based Data Normalization** | POS, marketplace, e-wallet, and telco metadata are fused into one audit-ready merchant timeline. |
+| **WoE Scorecard Core** | Fixed bins, weights, and reason codes power the primary scorecard. An EBM challenger runs in parallel for accuracy checks. |
+| **Statistical Pattern Features** | Tet, monsoon, and household-business effects become peer-normalized features inside the scorecard. |
+| **AI-Assisted Underwriting** | Policy rules and score thresholds create a recommendation pack. Human review stays standard, and the LLM only translates approved codes. |
+
+> ***Every score is reproducible from logged inputs, weights, bin boundaries, and reason codes.***
+
+---
+
+# The Data Flywheel
+
+**The Data Flywheel**
+
+> More merchants -> More data fused -> Better scorecards -> Faster underwriting -> Better risk features -> Lower defaults -> Better portfolio -> Lower cost of capital -> Lower rates -> More demand
+
+Performance data improves the next validation cycle.
+
+---
+
+# Competitive Advantage
+
+| | Traditional POS | Marketplace Apps | Bank Loans | **Shinhan Soft POS** |
+|---|-----------------|------------------|------------|-------------------|
+| Multi-channel orders | ❌ | ✅ Only own channel | ❌ | ✅ **All channels unified** |
+| Inventory management | ⚠️ Basic | ❌ | ❌ | ✅ **Smart alerts** |
+| Staff management | ❌ | ❌ | ❌ | ✅ |
+| Automatic reconciliation | ❌ | ❌ | ❌ | ✅ |
+| Contextual financing | ❌ | ❌ | ❌ | ✅ **Embedded** |
+| Daily usage frequency | Daily | Weekly | Monthly | **Multiple times per day** |
+
+*Sources: MISA Lending (misa.vn), Shopee SEasy (TPBank partnership), Validus Vietnam, Techcombank ShopCash*
+
+> **Why This Matters**
+>
+> - Existing solutions use one data channel only
+> - Our approach combines POS + Marketplace + E-wallet data - not yet disclosed as a combined approach in Vietnam
+
+---
+
+# Payment Safety
+
+## How we protect merchants and Shinhan
+
+**3 statistical safety patterns we monitor:**
+
+| 🔄 **Circular Wallet Flows** | 🛒 **Synthetic Orders** | ⚡ **Velocity Anomalies** |
+|---|---|---|
+| Rule-based flow checks flag repeated wallet loops that appear to inflate transaction volume. | Cross-checks compare payment, address, and fulfillment trails to surface synthetic orders. | Threshold and peer-baseline checks surface unusual spikes at odd hours or from new devices. |
+
+---
+
+# Vietnam-Specific Risk Signals
+
+Peer-normalized statistical signals tuned to how local merchants actually operate:
+
+| 🎊 **Tet Season Patterns** | 🌧️ **Monsoon Disruption** | 👨‍👩‍👧 **Family Business Structures** |
+|---|---|---|
+| Lunar-calendar seasonality factors help prevent holiday spikes from being mistaken for permanent growth. | Regional baseline adjustments separate weather-driven demand drops from true merchant deterioration. | Linked-counterparty features capture shared household cashflow patterns while keeping the score fully auditable. |
 
 ---
 
@@ -235,249 +225,57 @@ We combine data sources banks ignore into a credit score that reflects actual bu
 
 ## Path to Production
 
-<div class="roadmap">
-
-<div class="roadmap-phase">
-<div class="phase-num">Phase 1</div>
-<div class="phase-title">Sandbox (Month 1-2)</div>
-<ul>
-<li>Anonymized data only</li>
-<li>Internal testing</li>
-<li>Manual review for all decisions</li>
-<li>SBV regulatory consultation</li>
-</ul>
-</div>
-
-<div class="roadmap-arrow">→</div>
-
-<div class="roadmap-phase">
-<div class="phase-num">Phase 2</div>
-<div class="phase-title">Pilot (Month 3-4)</div>
-<ul>
-<li>Live data with full consent</li>
-<li>Automated decisions (80%)</li>
-<li>Human review for exceptions</li>
-<li>Compliance audit trail</li>
-</ul>
-</div>
-
-<div class="roadmap-arrow">→</div>
-
-<div class="roadmap-phase">
-<div class="phase-num">Phase 3</div>
-<div class="phase-title">Production (Month 5-6)</div>
-<ul>
-<li>Full automated processing</li>
-<li>Real-time fraud detection</li>
-<li>Complete audit compliance</li>
-<li>Scale to 100+ merchants</li>
-</ul>
-</div>
-
-</div>
-
----
-
-# The Hacker Advantage
-
-## Why This Works
-
-**1. Data Fusion Engine**
-Combined 3 data streams not designed to talk. Normalized across formats, timing, currencies.
-
-**2. Vietnam-Specific Heuristics**
-Tết spikes, school cycles, monsoon disruption, market day rhythms.
-
-**3. Explainable Rules**
-Not a black box. Merchants see WHY their score changed.
-
----
-
-# Qwen's Role
-
-## Where AI adds value
-- Parse and categorize transaction descriptions in Vietnamese
-- Detect anomalies in spending patterns
-- Generate explainable score summaries
-- Predict cash flow for loan sizing
-
-## Where human cleverness matters more
-- Design credit signals that predict default
-- Build seasonal adjustments for Vietnam
-- Create thresholds for informal businesses
-- Balance approval rate vs. default rate
-
----
-
-# The Business Model
-
-## For Shinhan
-
-### Revenue
-- Loan origination fees
-- Interest income: Market-competitive rate
-- Deposit growth: SME accounts
-- Cross-sell: Insurance, payment processing
-
-### Unit Economics
-- Unit economics TBD based on early product launch
-- Focus: prove the model works first
-- Target: prove model performance at acceptable loss rate
-
----
-
-# The Loan Product
-
-## What We Offer
-
-<div class="loan-grid">
-
-<div class="loan-box">
-<div class="loan-label">Loan Range</div>
-<div class="loan-value">$200 - $5,000</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Interest Rate</div>
-<div class="loan-value">15-18% APR</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Term Length</div>
-<div class="loan-value">3, 6, or 12 months</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Approval Time</div>
-<div class="loan-value">72 hours</div>
-</div>
-
-</div>
-
-<div class="loan-grid">
-
-<div class="loan-box">
-<div class="loan-label">Origination Fee</div>
-<div class="loan-value">1%</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Late Payment</div>
-<div class="loan-value">1.5%/mo</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Prepayment</div>
-<div class="loan-value">No penalty</div>
-</div>
-
-<div class="loan-box">
-<div class="loan-label">Min. History</div>
-<div class="loan-value">90 days</div>
-</div>
-
-</div>
-
-*Illustrative terms for demonstration. Final terms determined during pilot.*
-
----
-
-# The Flywheel
-
-**More merchants** → More data captured
-↓  
-**Better scoring** → Higher approval rates  
-↓  
-**Better underwriting** → Lower defaults  
-↓  
-**Better portfolio** → Lower cost of capital  
-↓  
-**Lower rates** → More demand
-
-*This data asset compounds over time.*
-
----
-
-# Competitive Position
-
-| | Traditional Bank | Existing Alternative Lenders | **Shinhan Credit Connect** |
-|--|-----------------|---------------------------|------------------------|
-| **Data used** | Tax statements | One channel (e.g., Shopee, or MISA) | **POS + Marketplace + Wallet COMBINED** |
-| **Approval time** | 5-7 days | 5 minutes to 48 hours | **Target: fastest practical** |
-| **Min. history** | 6 months | 3 months | **90 days minimum history** |
-| **Data breadth** | Narrow | Medium | **We combine POS + marketplace + e-wallet data** |
-| **SME coverage** | Limited | Growing | **Focus: underserved segment** |
-
-*Sources: MISA Lending (misa.vn), Shopee SEasy (TPBank partnership), Validus Vietnam, Techcombank ShopCash*
-
----
-
-# Early Product Launch Plan
-
-<div class="pilot-grid">
-
-<div><strong>Phase 1 (M1-2):</strong><br>20 POS merchants<br>→ data quality, score distribution</div>
-
-<div><strong>Phase 2 (M3-4):</strong><br>50 digital sellers<br>→ marketplace data, hybrid scoring</div>
-
-<div><strong>Phase 3 (M5-6):</strong><br>Full credit product<br>→ disbursement, defaults, repeat</div>
-
-</div>
-
-**Success Metric:** prove data quality + model signal
-
----
-
-## What This Is
-
-We haven't launched a production credit product yet.
-We don't have live API integrations yet.
-We don't have a backtested model yet.
-
-What we HAVE built:
-- Working early system showing data → score concept
-- Data fusion pipeline architecture
-- Clear path to 6-month early product launch
-
-This is an early product proposal with a defined roadmap.
+| **Phase 1** | **Phase 2** | **Phase 3** |
+|---|---|---|
+| **Sandbox (Month 1-2):** Anonymized data only; internal testing; score + reason codes prepared for analyst review; SBV regulatory consultation | **Pilot (Month 3-4):** Live data with full consent; POS operations first; automated score calculation and policy checks; human review remains standard; compliance audit trail | **Production (Month 5-6):** Full POS rollout; contextual capital offers; explainable scorecard + audit trail; human-reviewed origination at 100+ merchants |
 
 ---
 
 # The Ask
 
 ## What we need
-- Access to SOL merchant infrastructure
-- Partnership with 1-2 POS providers
-- API access to anonymized transaction data
-- **6 months** to prove the model
+
+- Access to merchant/payment infrastructure
+- Partnership with existing POS providers
+- Pilot merchant cohort for validation
+- **6 months** to prove daily engagement
 
 ## What you get
-- Working **alternative credit scoring prototype**
-- Path to serving underserved SMEs
-- Data asset that compounds over time
-- Team that understands both **data engineering** and **credit risk**
+
+- The daily merchant operating system for Vietnam
+- High frequency merchant relationship
+- Embedded financing monetization layer
+- Data asset that compounds with every transaction
+
+---
+
+# What This Is
+
+**We haven't launched a production credit product yet.**
+
+We don't have live API integrations yet.
+
+We don't have a backtested model yet.
+
+**What we HAVE built:**
+
+- Working early system showing normalized data -> explainable score concept
+- ML-based data fusion and scorecard pipeline architecture
+- Clear path to 6-month early product launch
+
+*This is an early product proposal with a defined roadmap.*
 
 ---
 
 # The Close
 
-<div class="grid">
+Every sale is captured.
 
-Every transaction is a **data point**.
+Every inventory alert is acted on.
 
-Every data point is a **credit signal**.
+Every merchant grows with Shinhan.
 
-Every credit signal is a **business that can grow**.
-
-</div>
-
-<br>
-
-<div class="highlight" style="text-align: center; font-size: 28px; margin-top: 40px;">
-
-We built the credit bureau Vietnam's SMEs deserve.
-
-</div>
+> **Position Shinhan as the bank merchants use every day.**
 
 ---
 
@@ -501,11 +299,24 @@ We built the credit bureau Vietnam's SMEs deserve.
 | [Techcombank SoftPOS](https://techcombank.com/ho-kinh-doanh-va-doanh-nghiep-nho/doanh-nghiep-nho/quan-ly-doanh-thu/softpos) | Bank SoftPOS product |
 | [Techcombank ShopCash](https://techcombank.com/ho-kinh-doanh-va-doanh-nghiep-nho/ho-kinh-doanh/vay/vay-tin-chap-kinh-doanh-shopcash) | Bank merchant lending product |
 
-## Key Insight
+---
 
-**Existing solutions use ONE data channel:**
-- Shopee uses Shopee data
-- MISA uses accounting data
-- Techcombank uses their own merchant data
+# Appendix: Model Explainability
 
-**Our approach: Combine POS + Marketplace + E-wallet data - not yet disclosed as a combined approach in Vietnam.**
+## WoE Scorecard & EBM Challenger
+
+> **WoE Logistic Scorecard**
+>
+> Converts transaction history into a single score (300-850 scale) with fixed reason codes. Every input, weight, and bin boundary is logged and reproducible. Regulators prefer it because every decision is fully auditable.
+
+> **EBM Challenger Model**
+>
+> A glass-box ML model that runs alongside the scorecard for accuracy validation. Each feature's contribution to the final score is visible. Used for validation only - not final decisions.
+
+---
+
+# Why Not Deep Learning or LLM for Scoring?
+
+> Black-box models are prohibited by most banking regulators - no one can explain why a merchant was declined. Our LLM is limited to translating pre-approved reason codes into natural language. It never makes or modifies credit decisions.
+
+Every score is reproducible from logged inputs, weights, bin boundaries, and reason codes.
