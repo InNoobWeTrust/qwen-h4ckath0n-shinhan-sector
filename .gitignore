@@ -29,3 +29,7 @@ yarn-error.log*
 .idea/
 
 .kilo/plans
+
+# Cloudflare Workers
+app/.wrangler/
+.dev.vars
