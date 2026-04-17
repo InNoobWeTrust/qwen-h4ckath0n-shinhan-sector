@@ -26,6 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Shinhan Soft POS</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://js.puter.com/v2/"></script>
         <style>{`body { font-family: 'Be Vietnam Pro', sans-serif; }`}</style>
         <Meta />
         <Links />

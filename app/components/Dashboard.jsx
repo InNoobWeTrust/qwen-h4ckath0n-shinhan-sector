@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   AlertTriangle,
   BadgeCheck,
@@ -15,6 +15,9 @@ import {
   Store,
   UserRound,
 } from 'lucide-react'
+import CreditScoreModal from './CreditScoreModal'
+import CreditScorePanel from './CreditScorePanel'
+import LoanApplicationModal from './LoanApplicationModal'
 import RevenueChart from './RevenueChart'
 import {
   inventoryItems,
@@ -43,6 +46,12 @@ function getReceiptPrintLabel(status) {
 function getReceiptInvoiceLabel(status) {
   return status === 'issued' ? 'Đã xuất hóa đơn' : 'Chưa xuất hóa đơn'
 }
+
+const merchants = [
+  { id: 'M1', label: 'M1: Chị Linh', name: 'Chị Linh' },
+  { id: 'M2', label: 'M2: Anh Hùng', name: 'Anh Hùng' },
+  { id: 'M3', label: 'M3: Chị Mai', name: 'Chị Mai' },
+]
 
 function OverviewCard({ label, title, value, detail, change, icon, accent = 'sky' }) {
   const IconComponent = icon
@@ -116,6 +125,30 @@ function Dashboard() {
     () => [...inventoryItems].sort((a, b) => b.unitsSold7d - a.unitsSold7d).slice(0, 4),
     [],
   )
+
+  const [selectedMerchant, setSelectedMerchant] = useState('M1')
+  const [scoreData, setScoreData] = useState(null)
+  const [scoreModalOpen, setScoreModalOpen] = useState(false)
+  const [loanModalOpen, setLoanModalOpen] = useState(false)
+
+  useEffect(() => {
+    async function fetchScore() {
+      try {
+        const res = await fetch('/api/credit-score', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ merchantId: selectedMerchant }),
+        })
+        const data = await res.json()
+        setScoreData(data)
+      } catch {
+        // fallback to empty on error
+        setScoreData(null)
+      }
+    }
+
+    fetchScore()
+  }, [selectedMerchant])
 
   const actionSuggestions = [
     {
@@ -249,15 +282,30 @@ function Dashboard() {
             icon={PackageOpen}
             accent="emerald"
           />
-          <OverviewCard
-            label="Nhân viên đang ca"
-            title={`${metrics.activeStaff.length} người`}
-            value="1 quản lý, 1 thu ngân, 1 bán hàng"
-            detail="Nhịp bán ổn định, chưa phát sinh nghẽn tại quầy"
-            change="Giá trị giỏ trung bình hiện tại 53.000 VND"
-            icon={UserRound}
-            accent="slate"
-          />
+          <div className="space-y-4">
+            <div className="rounded-[28px] border border-white/70 bg-white/90 p-5 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+              <p className="text-sm font-medium text-slate-500">Merchant theo dõi tín nhiệm</p>
+              <select
+                value={selectedMerchant}
+                onChange={(event) => setSelectedMerchant(event.target.value)}
+                className="mt-3 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
+              >
+                {merchants.map((merchant) => (
+                  <option key={merchant.id} value={merchant.id}>
+                    {merchant.label}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-3 text-sm text-slate-500">Chọn merchant để cập nhật điểm tín nhiệm và hạn mức đề xuất.</p>
+            </div>
+
+            <CreditScorePanel
+              scoreData={scoreData ?? {}}
+              onOpenModal={() => setScoreModalOpen(true)}
+              onOpenLoan={() => setLoanModalOpen(true)}
+              selectedMerchantName={selectedMerchant === 'M1' ? 'Chị Linh' : selectedMerchant === 'M2' ? 'Anh Hùng' : 'Chị Mai'}
+            />
+          </div>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[minmax(0,1.75fr)_380px]">
@@ -503,6 +551,26 @@ function Dashboard() {
           </div>
         </section>
       </div>
+      <CreditScoreModal
+        open={scoreModalOpen}
+        onClose={() => setScoreModalOpen(false)}
+        score={scoreData?.score ?? 0}
+        maxScore={850}
+        change={scoreData?.change ?? ''}
+        breakdown={scoreData?.breakdown ?? []}
+        scores={scoreData?.scores ?? null}
+        positiveFactors={scoreData?.positiveFactors ?? []}
+        negativeFactors={scoreData?.negativeFactors ?? []}
+        whatIf={scoreData?.whatIf ?? { condition: '', improvement: '' }}
+        band={scoreData?.band ?? ''}
+      />
+      <LoanApplicationModal
+        open={loanModalOpen}
+        onClose={() => setLoanModalOpen(false)}
+        initialAmount={scoreData?.limit ?? 0}
+        merchantName={selectedMerchant === 'M1' ? 'Chị Linh' : selectedMerchant === 'M2' ? 'Anh Hùng' : 'Chị Mai'}
+        band={scoreData?.band ?? ''}
+      />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { handleOrders } from "../src/routes/orders";
 import { handleStaff } from "../src/routes/staff";
 import { handleShifts } from "../src/routes/shifts";
 import { handleReceipts } from "../src/routes/receipts";
+import { handleCreditScore } from "../src/routes/creditScore";
 import { handleMerchants } from "../src/routes/merchants";
 import { errorResponse, jsonResponse } from "../src/lib/utils";
 
@@ -25,7 +26,6 @@ const app = new Hono<{ Bindings: Env }>();
 // CORS preflight
 app.options("*", (c) => c.text("", 204, CORS_HEADERS as any));
 
-// ── API Routes via Hono ──────────────────────────────────────
 app.all("/api/:path*", async (c) => {
   const path = `/api/${c.req.param("path")}`;
   const method = c.req.method;
@@ -62,11 +62,16 @@ app.all("/api/:path*", async (c) => {
     path.startsWith("/api/receipts/")
   ) {
     resp = await handleReceipts(request, c.env as any);
+  } else if (
+    path === "/api/credit-score" ||
+    path.startsWith("/api/credit-score/")
+  ) {
+    resp = await handleCreditScore(request, c.env as any);
   } else {
     resp = errorResponse("Not Found", 404);
   }
 
-  const headers = new Headers(Object.fromEntries(resp.headers));
+  const headers = new Headers(resp.headers);
   for (const [k, v] of Object.entries(CORS_HEADERS)) {
     headers.set(k, v);
   }

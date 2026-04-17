@@ -1,4 +1,97 @@
 import { AlertTriangle, CircleX, ShieldCheck, Sparkles } from 'lucide-react'
+import { getBandColor } from '../src/lib/creditScoring'
+
+const BASE_SCORE = 300
+const MAX_SCORE = 850
+const SCORE_MULTIPLIER = 8.5
+
+const bandBadgeClasses = {
+  sky: 'bg-sky-100 text-sky-700',
+  emerald: 'bg-emerald-100 text-emerald-700',
+  amber: 'bg-amber-100 text-amber-700',
+  orange: 'bg-orange-100 text-orange-700',
+  rose: 'bg-rose-100 text-rose-700',
+  slate: 'bg-slate-100 text-slate-700',
+}
+
+const waterfallSegments = [
+  {
+    key: 'revenue',
+    label: 'Doanh thu',
+    weight: 0.35,
+    barClass: 'bg-sky-500',
+    softClass: 'bg-sky-50 text-sky-700',
+    textClass: 'text-sky-700',
+  },
+  {
+    key: 'stability',
+    label: 'Ổn định',
+    weight: 0.25,
+    barClass: 'bg-emerald-500',
+    softClass: 'bg-emerald-50 text-emerald-700',
+    textClass: 'text-emerald-700',
+  },
+  {
+    key: 'payment',
+    label: 'Thanh toán',
+    weight: 0.25,
+    barClass: 'bg-amber-500',
+    softClass: 'bg-amber-50 text-amber-700',
+    textClass: 'text-amber-700',
+  },
+  {
+    key: 'diversity',
+    label: 'Đa dạng',
+    weight: 0.15,
+    barClass: 'bg-indigo-500',
+    softClass: 'bg-indigo-50 text-indigo-700',
+    textClass: 'text-indigo-700',
+  },
+]
+
+function getSafetyLabel(band) {
+  switch (band) {
+    case 'Tốt':
+      return 'Mức thấp'
+    case 'Khá':
+      return 'Mức thấp'
+    case 'Trung bình':
+      return 'Mức trung bình'
+    case 'Yếu':
+      return 'Mức cao'
+    case 'Yếu nhiều':
+      return 'Mức rất cao'
+    default:
+      return 'Mức trung bình'
+  }
+}
+
+function getPercent(value, max = MAX_SCORE) {
+  return Math.max(0, Math.min(100, (value / max) * 100))
+}
+
+function getContribution(value, weight) {
+  return Number(value ?? 0) * weight * SCORE_MULTIPLIER
+}
+
+function getWaterfallData(scores) {
+  let runningTotal = BASE_SCORE
+
+  return waterfallSegments.map((segment) => {
+    const contribution = getContribution(scores?.[segment.key], segment.weight)
+    const start = runningTotal
+    const end = start + contribution
+
+    runningTotal = end
+
+    return {
+      ...segment,
+      contribution,
+      start,
+      end,
+    }
+  })
+}
 
 function Gauge({ score, maxScore }) {
   const normalized = score / maxScore
@@ -36,8 +129,97 @@ function Gauge({ score, maxScore }) {
   )
 }
 
-function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown }) {
+function WaterfallChart({ scores, score, breakdown }) {
+  const hasScores = waterfallSegments.some((segment) => Number.isFinite(Number(scores?.[segment.key])))
+  const rows = hasScores ? getWaterfallData(scores) : []
+  const computedTotal = rows.at(-1)?.end ?? BASE_SCORE
+  const totalScore = hasScores ? Math.round(computedTotal) : Math.max(BASE_SCORE, Math.round(Number(score) || BASE_SCORE))
+
+  return (
+    <div className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Điểm thành phần</p>
+          <p className="mt-2 text-sm leading-6 text-slate-500">Công thức: (revenue x 0,35 + stability x 0,25 + payment x 0,25 + diversity x 0,15) x 8,5 + 300</p>
+        </div>
+        <div className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700">{totalScore}/850</div>
+      </div>
+
+      <div className="mt-5 space-y-4">
+        <div className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3">
+          <div className="text-right text-sm font-semibold text-slate-500">300</div>
+          <div>
+            <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+              <span className="font-medium text-slate-700">Base</span>
+              <span className="font-semibold text-slate-900">Mốc nền 300</span>
+            </div>
+            <div className="relative h-4 overflow-hidden rounded-full bg-slate-100">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-slate-900" style={{ width: `${getPercent(BASE_SCORE)}%` }} />
+            </div>
+          </div>
+        </div>
+
+        {hasScores ? (
+          rows.map((item) => (
+            <div key={item.key} className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3">
+              <div className="text-right text-xs font-semibold text-slate-400">{Math.round(item.start)}</div>
+              <div>
+                <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${item.softClass}`}>{item.label}</span>
+                  <span className={`font-semibold ${item.textClass}`}>+{Math.round(item.contribution)} điểm</span>
+                </div>
+                <div className="relative h-4 overflow-hidden rounded-full bg-slate-100">
+                  <div className="absolute inset-y-0 left-0 rounded-full bg-slate-200" style={{ width: `${getPercent(item.start)}%` }} />
+                  <div
+                    className={`absolute inset-y-0 rounded-full ${item.barClass}`}
+                    style={{ left: `${getPercent(item.start)}%`, width: `${getPercent(item.contribution)}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-5 text-sm leading-6 text-slate-500">
+            Chưa có đủ dữ liệu thành phần để hiển thị waterfall chart cho hồ sơ này.
+          </div>
+        )}
+
+        <div className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3">
+          <div className="text-right text-sm font-semibold text-slate-900">{totalScore}</div>
+          <div>
+            <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+              <span className="font-semibold text-slate-900">Tổng điểm</span>
+              <span className="font-semibold text-slate-900">{totalScore}/850</span>
+            </div>
+            <div className="relative h-5 overflow-hidden rounded-full bg-slate-100">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-slate-900 via-sky-700 to-emerald-500" style={{ width: `${getPercent(totalScore)}%` }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {Array.isArray(breakdown) && breakdown.length > 0 ? (
+        <p className="mt-4 text-xs leading-5 text-slate-400">Phần waterfall này tổng hợp từ 4 trụ cột chấm điểm chính và {breakdown.length} tín hiệu diễn giải chi tiết trong hồ sơ.</p>
+      ) : null}
+    </div>
+  )
+}
+
+function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown, scores, positiveFactors, negativeFactors, whatIf, band }) {
   if (!open) return null
+
+  const bandColor = getBandColor(band)
+  const bandBadgeClassName = bandBadgeClasses[bandColor] ?? bandBadgeClasses.slate
+  const monthlyChange =
+    typeof change === 'number'
+      ? `${change > 0 ? '+' : ''}${change}`
+      : String(change ?? '').match(/[+-]?\d+(?:[.,]\d+)?/)?.[0] ?? String(change ?? '').trim()
+  const isPositiveChange = !monthlyChange.startsWith('-')
+  const monthlyChangeValue = Number.parseFloat(monthlyChange.replace(',', '.'))
+  const monthlyChangeDisplay = Number.isFinite(monthlyChangeValue)
+    ? String(Math.abs(monthlyChangeValue)).replace('.', ',')
+    : monthlyChange.replace(/^[+-]/, '')
+  const safetyLabel = getSafetyLabel(band)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm" onClick={onClose}>
@@ -59,31 +241,37 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
           <div className="space-y-5 rounded-[28px] bg-gradient-to-br from-sky-50 via-white to-emerald-50 p-6">
             <Gauge score={score} maxScore={maxScore} />
             <div className="text-center">
-              <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">Dữ liệu vận hành ổn định</span>
+              <span className={`inline-flex rounded-full px-4 py-1 text-sm font-semibold ${bandBadgeClassName}`}>{band}</span>
               <p className="mt-3 text-sm leading-6 text-slate-500">Doanh thu, đối soát và lịch sử thanh toán đang ở mức phù hợp để tham chiếu cho giải pháp vốn lưu động.</p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Biến động tháng</p>
-                <p className="mt-2 text-xl font-semibold text-emerald-700">+{change}</p>
+                <p className={`mt-2 text-xl font-semibold ${isPositiveChange ? 'text-emerald-700' : 'text-rose-700'}`}>{monthlyChange}</p>
               </div>
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Ổn định vận hành</p>
-                <p className="mt-2 text-xl font-semibold text-sky-700">Tốt</p>
+                <p className="mt-2 text-xl font-semibold text-sky-700">{band}</p>
               </div>
               <div className="rounded-2xl bg-white/90 p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.18em] text-slate-500">An toàn thanh toán</p>
-                <p className="mt-2 text-xl font-semibold text-slate-900">Mức thấp</p>
+                <p className="mt-2 text-xl font-semibold text-slate-900">{safetyLabel}</p>
               </div>
             </div>
 
             <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
               <div className="flex items-start gap-3">
                 <Sparkles className="mt-0.5 h-5 w-5 text-amber-500" />
-                <p>
-                  Chỉ số tổng hợp tăng <strong>{change} điểm</strong> trong tháng này nhờ doanh thu ổn định hơn, tỷ lệ đối soát đúng hạn cao và chu kỳ dòng tiền đều.
-                </p>
+                {isPositiveChange ? (
+                  <p>
+                    Chỉ số tổng hợp tăng <strong>{monthlyChangeDisplay} điểm</strong> trong tháng này nhờ doanh thu ổn định hơn, tỷ lệ đối soát đúng hạn cao và chu kỳ dòng tiền đều.
+                  </p>
+                ) : (
+                  <p>
+                    Chỉ số tổng hợp giảm <strong>{monthlyChangeDisplay} điểm</strong> trong tháng này. Cần theo dõi biến động doanh thu và cải thiện tỷ lệ đối soát.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -93,14 +281,22 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
                   <ShieldCheck className="h-5 w-5" />
                   <p className="font-semibold">Yếu tố đang hỗ trợ tốt</p>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-500">Doanh thu đều, tỷ lệ đối soát đúng hạn cao và hoàn trả thấp giúp hồ sơ vận hành giữ mức ổn định.</p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-500">
+                  {(positiveFactors ?? []).map((item) => (
+                    <li key={item.code}>{item.text}</li>
+                  ))}
+                </ul>
               </div>
               <div className="rounded-2xl border border-rose-100 bg-white/90 p-4">
                 <div className="flex items-center gap-2 text-rose-700">
                   <AlertTriangle className="h-5 w-5" />
                   <p className="font-semibold">Điểm cần theo dõi</p>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-slate-500">Có một cụm đơn hàng giá trị lặp lại cần tiếp tục đối chiếu để tránh làm chậm chu kỳ đối soát trong tuần này.</p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-500">
+                  {(negativeFactors ?? []).map((item) => (
+                    <li key={item.code}>{item.text}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -108,7 +304,7 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
           <div>
             <h3 className="text-lg font-semibold text-slate-900">Phân tích chi tiết</h3>
             <div className="mt-4 space-y-4">
-              {breakdown.map((item) => (
+              {(breakdown ?? []).map((item) => (
                 <div key={item.label} className="rounded-2xl bg-slate-50 p-4">
                   <div className="flex items-center justify-between gap-4 text-sm font-medium text-slate-700">
                     <span>{item.label}</span>
@@ -123,6 +319,18 @@ function CreditScoreModal({ open, onClose, score, maxScore, change, breakdown })
                   <p className="mt-3 text-sm leading-6 text-slate-500">{item.description}</p>
                 </div>
               ))}
+            </div>
+
+            {whatIf ? (
+              <div className="mt-5 rounded-[24px] border border-amber-200 bg-amber-50 p-5 text-amber-950">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-700">Nếu cải thiện thêm</p>
+                <p className="mt-3 text-sm leading-7">{whatIf.condition}</p>
+                <p className="mt-2 text-sm font-semibold">{whatIf.improvement}</p>
+              </div>
+            ) : null}
+
+            <div className="mt-5">
+              <WaterfallChart scores={scores} score={score} breakdown={breakdown} />
             </div>
 
             <div className="mt-5 rounded-[24px] border border-slate-200 bg-slate-950 p-5 text-white">
