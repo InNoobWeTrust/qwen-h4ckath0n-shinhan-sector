@@ -64,11 +64,11 @@ style: |
 ---
 
 <!-- _class: lead -->
-<!-- _header: Shinhan Future's Lab Hackathon -->
+<!-- _header: Qwen AI Build Day — Financial Track (sponsored by Shinhan) -->
 
 # Shinhan Voice Agent: AI-Powered Collections & Sales
 
-### Shinhan Future's Lab Hackathon
+### Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 <div class="gray">
 Team: [Your Team Name]
@@ -425,5 +425,5 @@ We're handling the rest.
 ## AI-Powered Collections & Sales
 
 <div class="gray">
-Shinhan Future's Lab Hackathon
+Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 </div>

@@ -1,6 +1,6 @@
 # Shinhan Voice Agent: AI-Powered Collections & Sales
 
-**Shinhan Future's Lab Hackathon**
+**Qwen AI Build Day — Financial Track (sponsored by Shinhan)**
 
 Team: [Your Team Name]
 
@@ -198,4 +198,4 @@ We're handling the rest.
 
 **AI-Powered Collections & Sales**
 
-Shinhan Future's Lab Hackathon
+Qwen AI Build Day — Financial Track (sponsored by Shinhan)

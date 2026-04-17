@@ -3,14 +3,14 @@ marp: true
 paginate: true
 theme: default
 style: strong { color: #d93025; }
-footer: Shinhan Future's Lab Hackathon
+footer: Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 ---
 
 <!-- _class: lead -->
 # Loyalty + Credit
 ## One Scan, Full Ecosystem
 
-Shinhan Future's Lab Hackathon
+Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 ---
 
@@ -237,4 +237,4 @@ Every growing merchant is more business for Shinhan.
 
 ### One scan. Full ecosystem.
 
-Shinhan Future's Lab Hackathon
+Qwen AI Build Day — Financial Track (sponsored by Shinhan)

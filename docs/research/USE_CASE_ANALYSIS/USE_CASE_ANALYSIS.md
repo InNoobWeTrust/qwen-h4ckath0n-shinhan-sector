@@ -1,4 +1,4 @@
-# Use Case Analysis: Shinhan Vietnam Hackathon
+# Use Case Analysis: Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 **Document Version:** 2.0  
 **Date:** April 11-13, 2026  
@@ -10,7 +10,7 @@
 
 ## Executive Summary
 
-This analysis evaluates 32 official use cases for the Shinhan Vietnam Hackathon across dual objectives: winning the top prize and securing long-term job contracts.
+This analysis evaluates 32 official use cases for the Qwen AI Build Day — Financial Track (sponsored by Shinhan) across dual objectives: winning the top prize and securing long-term job contracts.
 
 ### Key Decision: Highest Odds Use Cases
 

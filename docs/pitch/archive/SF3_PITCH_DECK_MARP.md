@@ -94,7 +94,7 @@ style: |
 # Video Call eKYC: 
 # Deepfake Detection for Safe Digital Onboarding
 
-## Shinhan Future's Lab Hackathon
+## Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 **Team: Alpha Protectors**
 
@@ -548,7 +548,7 @@ We know what matters:
 
 ## Video Call eKYC: Deepfake Detection for Safe Digital Onboarding
 
-### Shinhan Future's Lab Hackathon
+### Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 **Team: Alpha Protectors**
 

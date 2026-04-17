@@ -1,6 +1,6 @@
 # Loyalty + Credit: One Scan, Full Ecosystem
 
-**Shinhan Future's Lab Hackathon**
+**Qwen AI Build Day — Financial Track (sponsored by Shinhan)**
 
 ---
 
@@ -10,7 +10,7 @@
 
 ## One Scan, Full Ecosystem
 
-Shinhan Future's Lab Hackathon
+Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 
 ---
 
