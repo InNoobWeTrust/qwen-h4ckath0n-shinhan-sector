@@ -6,7 +6,7 @@
 
 [![Shinhan Soft POS — home page](docs/images/%5Bqwen%20x%20shinhan%5D%20Shinhan%20Soft%20POS%20-%20home.png)](docs/images/%5Bqwen%20x%20shinhan%5D%20Shinhan%20Soft%20POS%20-%20home.png)
 
-🎥 **[Watch Demo Video](docs/videos/demo.webm)** — `docs/videos/demo.webm` (4.1MB, webm)
+https://github.com/user-attachments/assets/a678cbe4-e7d7-4cb2-8b26-7ea4cc2cc204
 
 [![Deploy to Cloudflare](https://img.shields.io/badge/Deploy-Cloudflare%20Workers-orange?logo=cloudflare)](https://developers.cloudflare.com/workers/)
 [![React Router](https://img.shields.io/badge/Frontend-React%20Router%20v7-blue?logo=react)](https://reactrouter.com/)
