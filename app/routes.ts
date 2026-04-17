@@ -9,4 +9,7 @@ export default [
   route("api/staff", "routes/api/staff.ts"),
   route("api/shifts", "routes/api/shifts.ts"),
   route("api/receipts", "routes/api/receipts.ts"),
+  route("api/credit-score", "routes/api/credit-score.ts"),
+  route("api/explain-score", "routes/api/explain-score.ts"),
+  route("von-kinh-doanh", "routes/von-kinh-doanh.tsx"),
 ] satisfies RouteConfig;

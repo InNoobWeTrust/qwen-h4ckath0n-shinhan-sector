@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { CalendarDays, LayoutGrid, Store } from 'lucide-react'
+import { BadgeDollarSign, CalendarDays, LayoutGrid, Store } from 'lucide-react'
+import { Link } from 'react-router'
 import CreditScoreModal from '../CreditScoreModal'
 import Dashboard from '../Dashboard'
 import LoanApplicationModal from '../LoanApplicationModal'
@@ -40,27 +41,22 @@ function AppShell() {
   const [activeTab, setActiveTab] = useState('tong-quan')
   const [showCreditScore, setShowCreditScore] = useState(false)
   const [showLoanApplication, setShowLoanApplication] = useState(false)
-  const [capitalContext, setCapitalContext] = useState(null)
   const activeLabel = tabs.find((tab) => tab.id === activeTab)?.label ?? 'Tổng quan'
 
-  const openCapitalSolution = (context) => {
-    setCapitalContext(context)
+  const openCapitalSolution = () => {
     setShowLoanApplication(true)
   }
 
-  const openCapitalDetails = (context) => {
-    setCapitalContext(context)
+  const openCapitalDetails = () => {
     setShowCreditScore(true)
   }
 
   const closeCapitalSolution = () => {
     setShowLoanApplication(false)
-    setCapitalContext(null)
   }
 
   const closeCapitalDetails = () => {
     setShowCreditScore(false)
-    setCapitalContext(null)
   }
 
   return (
@@ -85,7 +81,7 @@ function AppShell() {
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[340px]">
+            <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[480px]">
               <div className="rounded-[24px] bg-slate-950 p-4 text-white shadow-[0_20px_45px_rgba(15,23,42,0.16)]">
                 <p className="text-xs uppercase tracking-[0.2em] text-sky-100">Module đang xem</p>
                 <p className="mt-2 text-lg font-semibold">{activeLabel}</p>
@@ -97,6 +93,21 @@ function AppShell() {
                 </div>
                 <p className="mt-2 text-lg font-semibold">Thứ Hai, 13/04/2026</p>
               </div>
+              <Link
+                to="/von-kinh-doanh"
+                className="group rounded-[24px] bg-gradient-to-br from-sky-600 to-indigo-700 p-4 text-white shadow-[0_20px_45px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_56px_rgba(2,132,199,0.28)]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="rounded-2xl bg-white/20 p-2.5">
+                    <BadgeDollarSign className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="rounded-full bg-white/20 px-2.5 py-1 text-xs font-semibold opacity-80 transition group-hover:bg-white/30">
+                    Demo
+                  </div>
+                </div>
+                <p className="mt-3 text-base font-semibold leading-tight">Chấm điểm tín dụng</p>
+                <p className="mt-1 text-sm text-sky-100">Xem demo 5 hồ sơ merchant</p>
+              </Link>
             </div>
           </div>
 
@@ -125,11 +136,31 @@ function AppShell() {
         onClose={closeCapitalDetails}
         score={745}
         maxScore={850}
-        change={15}
+        change="+15 điểm"
         breakdown={scoreBreakdown}
-        context={capitalContext}
+        scores={{ revenue: 58, stability: 53, payment: 49, diversity: 44 }}
+        positiveFactors={[
+          { code: 'R01', text: 'Doanh thu ổn định hàng tháng' },
+          { code: 'R02', text: 'Tỷ lệ đối soát đúng hạn cao' },
+          { code: 'R03', text: 'Nguồn thu đa dạng' },
+        ]}
+        negativeFactors={[
+          { code: 'R06', text: 'Doanh thu có biến động bất thường' },
+        ]}
+        whatIf={{
+          condition: 'Duy trì tốc độ tăng trưởng hiện tại',
+          improvement: 'Điểm có thể đạt 770 trong 3 tháng tới',
+        }}
+        band="Khá"
       />
-      <LoanApplicationModal open={showLoanApplication} onClose={closeCapitalSolution} context={capitalContext} />
+      <LoanApplicationModal
+        open={showLoanApplication}
+        onClose={closeCapitalSolution}
+        initialAmount={75000000}
+        merchantName="Cửa hàng hiện tại"
+        band="Khá"
+        score={745}
+      />
     </div>
   )
 }

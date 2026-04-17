@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BadgeCheck, CircleX, Landmark, ShieldCheck, Sparkles } from 'lucide-react'
 import StepIndicator from './StepIndicator'
 
@@ -12,14 +12,27 @@ const termOptions = [
 ]
 
 function formatCurrency(amount) {
-  return amount.toLocaleString('vi-VN') + ' VND'
+  return Number(amount ?? 0).toLocaleString('vi-VN') + ' VND'
 }
 
-function LoanApplicationModal({ open, onClose }) {
+function LoanApplicationModal({ open, onClose, initialAmount, merchantName, band, score }) {
+  const recommendedAmount = initialAmount ?? 95000000
+  const displayMerchantName = merchantName || 'Cửa hàng'
+  const isDeclined = initialAmount === 0 || (typeof score === 'number' && score < 600)
+
   const [currentStep, setCurrentStep] = useState(1)
-  const [amount, setAmount] = useState(95000000)
+  const [amount, setAmount] = useState(recommendedAmount)
   const [termMonths, setTermMonths] = useState(6)
   const [requestId, setRequestId] = useState('')
+
+  useEffect(() => {
+    if (!open) return
+
+    setCurrentStep(1)
+    setAmount(recommendedAmount)
+    setTermMonths(6)
+    setRequestId('')
+  }, [open, recommendedAmount])
 
   const selectedTerm = termOptions.find((option) => option.months === termMonths) ?? termOptions[1]
 
@@ -42,7 +55,7 @@ function LoanApplicationModal({ open, onClose }) {
 
   const resetForm = () => {
     setCurrentStep(1)
-    setAmount(95000000)
+    setAmount(recommendedAmount)
     setTermMonths(6)
     setRequestId('')
   }
@@ -79,51 +92,67 @@ function LoanApplicationModal({ open, onClose }) {
 
             <div className="mt-8">
               {currentStep === 1 ? (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-900">Chọn số tiền cần bổ sung</h3>
-                    <p className="mt-2 text-sm text-slate-500">Mức tham khảo được gợi ý từ doanh thu tại quầy, đơn đa kênh và nhu cầu nhập hàng ngắn hạn.</p>
-                  </div>
-                  <div className="rounded-[28px] bg-gradient-to-br from-sky-50 via-white to-cyan-50 p-6">
-                    <div className="text-center">
-                      <p className="text-sm font-medium text-slate-500">Nhu cầu vốn tham khảo</p>
-                      <p className="mt-3 text-4xl font-semibold tracking-tight text-sky-700">{formatCurrency(amount)}</p>
-                      <p className="mt-2 text-sm text-slate-500">Ưu tiên dùng cho nhập hàng nhanh và xoay vòng trong ca</p>
+                isDeclined ? (
+                  <div className="space-y-6 text-center">
+                    <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-rose-100">
+                      <CircleX className="h-14 w-14 text-rose-600" />
                     </div>
-                    <input
-                      type="range"
-                      min={5000000}
-                      max={120000000}
-                      step={5000000}
-                      value={amount}
-                      onChange={(event) => setAmount(Number(event.target.value))}
-                      className="mt-8 h-2 w-full cursor-pointer appearance-none rounded-full bg-sky-100 accent-sky-700"
-                    />
-                    <div className="mt-3 flex justify-between text-sm text-slate-500">
-                      <span>5 triệu</span>
-                      <span>120 triệu</span>
+                    <div>
+                      <h3 className="text-3xl font-semibold tracking-tight text-slate-900">Chưa đủ điều kiện</h3>
+                      <p className="mt-3 text-slate-500">Rất tiếc, hồ sơ hiện tại chưa đủ điều kiện đăng ký vay vốn.</p>
+                      {band === 'Yếu nhiều' ? <p className="mt-2 text-sm text-amber-600">Điểm tín dụng thấp chưa đạt ngưỡng tối thiểu.</p> : <p className="mt-2 text-sm text-amber-600">Vui lòng tiếp tục cải thiện chỉ số vận hành để được đánh giá lại.</p>}
                     </div>
-                  </div>
-                  <div className="grid gap-3 sm:grid-cols-3">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Phản hồi hồ sơ</p>
-                      <p className="mt-2 text-lg font-semibold text-slate-900">Trong 72 giờ</p>
-                    </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Tài sản đảm bảo</p>
-                      <p className="mt-2 text-lg font-semibold text-slate-900">Không cần</p>
-                    </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Nguồn dữ liệu vận hành</p>
-                      <p className="mt-2 text-lg font-semibold text-slate-900">3 nguồn đang đồng bộ</p>
-                    </div>
-                  </div>
-                  <div className="flex justify-end">
-                    <button className="rounded-full bg-sky-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-800" onClick={() => setCurrentStep(2)}>
-                      Tiếp theo
+                    <button className="mx-auto rounded-full bg-slate-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800" onClick={onClose}>
+                      Đóng
                     </button>
                   </div>
-                </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-900">Chọn số tiền cần bổ sung</h3>
+                      <p className="mt-2 text-sm text-slate-500">Mức tham khảo được gợi ý từ doanh thu tại quầy, đơn đa kênh và nhu cầu nhập hàng ngắn hạn.</p>
+                    </div>
+                    <div className="rounded-[28px] bg-gradient-to-br from-sky-50 via-white to-cyan-50 p-6">
+                      <div className="text-center">
+                        <p className="text-sm font-medium text-slate-500">Nhu cầu vốn tham khảo</p>
+                        <p className="mt-3 text-4xl font-semibold tracking-tight text-sky-700">{formatCurrency(amount)}</p>
+                        <p className="mt-2 text-sm text-slate-500">Ưu tiên dùng cho nhập hàng nhanh và xoay vòng trong ca</p>
+                      </div>
+                      <input
+                        type="range"
+                        min={5000000}
+                        max={120000000}
+                        step={5000000}
+                        value={amount}
+                        onChange={(event) => setAmount(Number(event.target.value))}
+                        className="mt-8 h-2 w-full cursor-pointer appearance-none rounded-full bg-sky-100 accent-sky-700"
+                      />
+                      <div className="mt-3 flex justify-between text-sm text-slate-500">
+                        <span>5 triệu</span>
+                        <span>120 triệu</span>
+                      </div>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Phản hồi hồ sơ</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">Trong 72 giờ</p>
+                      </div>
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Tài sản đảm bảo</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">Không cần</p>
+                      </div>
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Nguồn dữ liệu vận hành</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">3 nguồn đang đồng bộ</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <button className="rounded-full bg-sky-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-800" onClick={() => setCurrentStep(2)}>
+                        Tiếp theo
+                      </button>
+                    </div>
+                  </div>
+                )
               ) : null}
 
               {currentStep === 2 ? (
@@ -226,23 +255,28 @@ function LoanApplicationModal({ open, onClose }) {
                   </div>
                   <div>
                     <h3 className="text-3xl font-semibold tracking-tight text-slate-900">Yêu cầu đã được ghi nhận</h3>
-                    <p className="mt-3 text-slate-500">Shinhan Credit Connect đang kiểm tra hồ sơ và sẽ gửi phản hồi sau khi hoàn tất đối chiếu dữ liệu vận hành.</p>
+                    <p className="mt-3 text-slate-500">Yêu cầu bổ sung vốn cho {displayMerchantName} với số tiền {formatCurrency(amount)} đã được ghi nhận. Shinhan Credit Connect sẽ gửi phản hồi sau khi hoàn tất đối chiếu dữ liệu vận hành.</p>
                   </div>
                   <div className="rounded-[28px] bg-gradient-to-br from-emerald-50 via-white to-sky-50 p-6">
-                    <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                       <div className="rounded-2xl bg-white p-4 shadow-sm">
-                        <p className="text-sm text-slate-500">Mã yêu cầu</p>
-                        <p className="mt-2 text-lg font-semibold text-slate-900">{requestId}</p>
+                        <p className="text-sm text-slate-500">Đơn vị đăng ký</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">{displayMerchantName}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white p-4 shadow-sm">
+                        <p className="text-sm text-slate-500">Số tiền yêu cầu</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">{formatCurrency(amount)}</p>
                       </div>
                       <div className="rounded-2xl bg-white p-4 shadow-sm">
                         <p className="text-sm text-slate-500">Trạng thái</p>
                         <p className="mt-2 text-lg font-semibold text-emerald-700">Đang tiếp nhận</p>
                       </div>
                       <div className="rounded-2xl bg-white p-4 shadow-sm">
-                        <p className="text-sm text-slate-500">Bước tiếp theo</p>
-                        <p className="mt-2 text-lg font-semibold text-sky-700">Liên hệ xác nhận trong 72 giờ</p>
+                        <p className="text-sm text-slate-500">Mã yêu cầu</p>
+                        <p className="mt-2 text-lg font-semibold text-slate-900">{requestId}</p>
                       </div>
                     </div>
+                    <p className="mt-4 text-sm text-slate-500">Bước tiếp theo: Shinhan sẽ liên hệ xác nhận với {displayMerchantName} trong vòng 72 giờ làm việc.</p>
                   </div>
                   <button className="mx-auto rounded-full bg-sky-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-800" onClick={handleClose}>
                     Hoàn thành
@@ -256,8 +290,8 @@ function LoanApplicationModal({ open, onClose }) {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-100">Tóm tắt hồ sơ vận hành</p>
             <div className="mt-4 rounded-[24px] bg-white/8 p-4 ring-1 ring-white/10">
               <p className="text-sm text-slate-300">Mức tham khảo hiện tại</p>
-              <p className="mt-2 text-3xl font-semibold">95M VND</p>
-              <p className="mt-2 text-sm text-slate-300">Cửa hàng đang thuộc nhóm có doanh thu và chu kỳ đối soát ổn định trong phân khúc bán lẻ nhỏ.</p>
+              <p className="mt-2 text-3xl font-semibold">{formatCurrency(initialAmount)}</p>
+              <p className="mt-2 text-sm text-slate-300">{displayMerchantName} đang được đánh giá theo doanh thu và chu kỳ đối soát hiện tại trong phân khúc bán lẻ nhỏ.</p>
             </div>
             <div className="mt-4 space-y-3">
               <div className="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
