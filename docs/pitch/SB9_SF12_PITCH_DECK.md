@@ -2,7 +2,7 @@
 
 ## The Merchant Operating System with Embedded Credit
 
-**Shinhan Future's Lab Hackathon**
+**Qwen AI Build Day — Financial Track (sponsored by Shinhan)**
 
 ---
 

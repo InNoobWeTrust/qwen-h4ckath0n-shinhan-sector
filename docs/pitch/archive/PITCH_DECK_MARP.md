@@ -17,7 +17,7 @@ style: |
 # SB6: Contextual BNPL
 ## The Beachhead Into Vietnam's Consumer Ecosystem
 
-### Shinhan Future's Lab Hackathon
+### Qwen AI Build Day — Financial Track (sponsored by Shinhan)
 #### Team: Friday Patching Frenzy
 
 ---
@@ -228,4 +228,4 @@ This is why we propose a controlled pilot with measurable success criteria befor
 >
 > Today."
 
-**Team Sector 7 | Shinhan Future's Lab Hackathon 2026**
+**Qwen AI Build Day — Financial Track (sponsored by Shinhan)**

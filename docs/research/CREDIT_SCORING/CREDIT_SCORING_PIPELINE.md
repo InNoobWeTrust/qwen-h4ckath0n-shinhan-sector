@@ -4,7 +4,7 @@
 |-------|-------|
 | Date | 2026-04-13 |
 | Source | Brainstorming + parallel research |
-| Context | Vietnam SME alternative credit scoring for Shinhan hackathon |
+| Context | Vietnam SME alternative credit scoring for Qwen AI Build Day — Financial Track (sponsored by Shinhan) |
 
 ---
 

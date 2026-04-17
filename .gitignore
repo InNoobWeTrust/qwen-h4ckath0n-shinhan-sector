@@ -33,3 +33,9 @@ yarn-error.log*
 # Cloudflare Workers
 app/.wrangler/
 .dev.vars
+
+# Video files
+*.mov
+*.mp4
+*.avi
+*.mkv
